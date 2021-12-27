@@ -47,7 +47,7 @@ public class UserController {
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
-        return "register";
+        return "user/register";
     }
 
     @PostMapping("/register")
@@ -57,7 +57,7 @@ public class UserController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
-            return "register";
+            return "user/register";
         }
 
         User existingUser = userRepository.findByEmail(registerFormDTO.getEmail());
@@ -65,7 +65,7 @@ public class UserController {
         if (existingUser != null) {
             errors.rejectValue("email", "email.alreadyexists", "A user with that email already exists");
             model.addAttribute("title", "Register");
-            return "register";
+            return "user/register";
         }
 
         String password = registerFormDTO.getPassword();
@@ -73,7 +73,7 @@ public class UserController {
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             model.addAttribute("title", "Register");
-            return "register";
+            return "user/register";
         }
 
         User newUser = new User(registerFormDTO.getFirstName(), registerFormDTO.getLastName(), registerFormDTO.getEmail(), registerFormDTO.getPassword());
@@ -88,7 +88,7 @@ public class UserController {
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Log In");
-        return "login";
+        return "user/login";
     }
 
     @PostMapping("/login")
@@ -98,7 +98,7 @@ public class UserController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
-            return "login";
+            return "user/login";
         }
 
         User theUser = userRepository.findByEmail(loginFormDTO.getEmail());
@@ -106,7 +106,7 @@ public class UserController {
         if (theUser == null) {
             errors.rejectValue("email", "user.invalid", "The given email does not exist");
             model.addAttribute("title", "Log In");
-            return "login";
+            return "user/login";
         }
 
         String password = loginFormDTO.getPassword();
@@ -114,7 +114,7 @@ public class UserController {
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
-            return "login";
+            return "user/login";
         }
 
         setUserInSession(request.getSession(), theUser);
@@ -125,6 +125,6 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
         request.getSession().invalidate();
-        return "redirect:/login";
+        return "redirect:/user/login";
     }
 }
