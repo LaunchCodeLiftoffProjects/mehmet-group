@@ -1,7 +1,10 @@
 package com.translator.hub.models;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
@@ -26,20 +29,24 @@ public class User {
     @Email(message = "Invalid email. Try again.")
     private String email;
 
+    @NotNull
+    private String pwHash;
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     public User() {
     }
-    public User(String firstname, String lastname, String email) {
+    public User(String firstname, String lastname, String email, String password) {
         this.firstName = firstname;
         this.lastName = lastname;
         this.email = email;
+        this.pwHash = encoder.encode(password);
     }
 
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -59,5 +66,14 @@ public class User {
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
