@@ -2,6 +2,6 @@ package profiles;
 
 import org.springframework.context.annotation.Profile;
 
-@Profile("user")
+@Profile("user")//sets up a springboot profile to limit access to users only
 public class UserProfile implements BaseProfile {
 }
