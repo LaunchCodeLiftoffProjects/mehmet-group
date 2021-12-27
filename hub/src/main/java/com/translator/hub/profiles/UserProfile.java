@@ -1,4 +1,4 @@
-package profiles;
+package com.translator.hub.profiles;
 
 import org.springframework.context.annotation.Profile;
 

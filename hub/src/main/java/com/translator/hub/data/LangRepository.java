@@ -1,4 +1,4 @@
-package data;
+package com.translator.hub.data;
 
 import org.springframework.stereotype.Repository;
 
