@@ -24,6 +24,12 @@
                     <p class="error" th:errors="${registerFormDTO.lastName}"></p>
                 </div>
                 <div class="form-group">
+                    <label th:for="email">Email
+                        <input class="form-control" th:field="${registerFormDTO.email}" required="required">
+                    </label>
+                    <p class="error" th:errors="${registerFormDTO.email}"></p>
+                </div>
+                <div class="form-group">
                     <label>Password
                         <input class="form-control" th:field="${registerFormDTO.password}" type="password" required="required"/>
                     </label>
