@@ -80,7 +80,7 @@ public class UserController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        return "redirect:/user/login";
     }
 
 
