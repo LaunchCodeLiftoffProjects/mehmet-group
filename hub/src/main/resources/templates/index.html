@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="fragments :: head">
 </head>
 <body>
-<div><h2>Welcome! </h2></div>
-<a href="user/register">Register</a><br>
-<a href="user/login">Login</a>
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">The Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Users
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/user/register">Register</a></li>
+                        <li><a class="dropdown-item" href="/user/login">Login</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div><h2>Welcome! </h2></div>
+<!--<a href="user/register">Register</a><br>-->
+<!--<a href="user/login">Login</a>-->
+<button type="button" class="btn btn-secondary btn-lg">See Translators</button>
+<input type="button" class="btn btn-secondary btn-lg" value="See Translators" onclick="location.href='/viewtranslators'">
+<input type="button" class="btn btn-secondary btn-lg" value="Become Translator" onclick="location.href='/user/register'">
 
 </body>
 </html>
