@@ -1,6 +1,7 @@
 package com.translator.hub.models;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -26,26 +27,37 @@ public class Translator {
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String lastName;
 
+    @NotBlank(message = "Language is required.")
+    @Size(min = 3, max = 50, message = "Language must be between 3 and 50 characters")
+    private String language;
+
     @Size(max = 500, message = "bio is too long!")
     private String bio;
-
-    @Email(message = "Invalid email. Try again.")
-    private String contactEmail;
 
     @NotBlank(message = "Address can not be blank!")
     private String address;
 
     private String image;
 
+    @Email(message = "Invalid email. Try again.")
+    private String email;
+
+    @NotNull
+    private String pwHash;
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     public Translator() {
     }
-    public Translator(String firstname, String lastname,String address, String email, String bio, String image) {
+    public Translator(String firstname, String lastname,String language, String address, String bio, String image, String email, String password) {
         this.firstName = firstname;
         this.lastName = lastname;
+        this.language = language;
         this.address = address;
-        this.contactEmail = email;
+        this.email = email;
         this.bio = bio;
         this.image = image;
+        this.pwHash = encoder.encode(password);
     }
 
     public int getId() {
@@ -77,10 +89,10 @@ public class Translator {
     }
 
     public String getContactEmail() {
-        return contactEmail;
+        return email;
     }
     public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
+        this.email = contactEmail;
     }
 
     public String getAddress() {
@@ -96,5 +108,25 @@ public class Translator {
     }
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
     }
 }

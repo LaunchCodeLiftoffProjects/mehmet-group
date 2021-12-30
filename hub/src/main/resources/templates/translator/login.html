@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <title>Title</title>
+<head th:replace="fragments :: head">
 </head>
 <body>
 <main class="container-fluid">
@@ -13,15 +10,15 @@
             <form method="post">
                 <div class="form-group">
                     <label th:for="email">Email
-                        <input class="form-control" th:field="${loginFormDTO.email}" required="required">
+                        <input class="form-control" th:field="${translatorLogFormDTO.email}" required="required">
                     </label>
-                    <p class="error" th:errors="${loginFormDTO.email}"></p>
+                    <p class="error" th:errors="${translatorLogFormDTO.email}"></p>
                 </div>
                 <div class="form-group">
                     <label>Password
-                        <input class="form-control" th:field="${loginFormDTO.password}" type="password" required="required">
+                        <input class="form-control" th:field="${translatorLogFormDTO.password}" type="password" required="required">
                     </label>
-                    <p class="error" th:errors="${loginFormDTO.password}"></p>
+                    <p class="error" th:errors="${translatorLogFormDTO.password}"></p>
                 </div>
 
                 <input type="submit" class="btn btn-primary" value="Log In" />
