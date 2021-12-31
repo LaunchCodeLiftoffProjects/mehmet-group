@@ -7,9 +7,10 @@ import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -23,13 +24,12 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-//    private List<TranslatorsList>translatorsList;
+    private List<Translator> translatorsList;
 
-    //
+
     @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("title", "Translators");
-
         return "index";
     }
 
@@ -39,6 +39,7 @@ public class HomeController {
         model.addAttribute(new Translator());
         model.addAttribute("translator", translatorRepository);
         model.addAttribute("language", langRepository);
+        return "add";
     }
 
 
@@ -53,4 +54,4 @@ public class HomeController {
 //    @PostMapping("add")
 //    public String processTranslatorForm(@ModelAttribute @Valid Translator newTranslator, Error errors, Model model, @RequestParam int translatorId, @RequestParam List<Integer>language) {
 
-    }
+//    }
