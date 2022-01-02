@@ -1,7 +1,10 @@
 package com.translator.hub.data;
 
+import com.translator.hub.models.Language;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class LangRepository {
+public interface LangRepository extends CrudRepository<Language, Integer> {
+
 }
