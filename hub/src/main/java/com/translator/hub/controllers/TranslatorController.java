@@ -46,6 +46,7 @@ public class TranslatorController {
         session.setAttribute(translationSessionKey, translator.getId());
     }
 
+    //lives at localhost:8080/translator/register
     @GetMapping("/register")
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new TranslatorRegFormDTO());
@@ -57,7 +58,6 @@ public class TranslatorController {
     public String processRegistrationForm(@ModelAttribute @Valid TranslatorRegFormDTO translatorRegFormDTO,
                                           Errors errors, HttpServletRequest request, @RequestParam("image") MultipartFile multipartFile,
                                           Model model) throws IOException {
-
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
             return "translator/register";
@@ -134,7 +134,7 @@ public class TranslatorController {
         return "redirect:/translator/login";
     }
 
-    //lives at localhost:8080/detail?translatorId=3
+    //lives at localhost:8080/translator/detail?translatorId=3
     @GetMapping("detail")
     public String displayEventDetails(@RequestParam(required = false) Integer translatorId, Model model) {
         Optional<Translator> result = translatorRepository.findById(translatorId);
