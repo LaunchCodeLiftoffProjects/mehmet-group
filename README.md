@@ -23,6 +23,12 @@ View translated document: Users will be able to see a list of translated documen
 
 Downloads the translated documents: Users will be able to download the translated document.
 
+### Wireframes
+<img src="hub/src/main/resources/static/img/wireframe_home.png" width="400px" height="300px"/><img src="hub/src/main/resources/static/img/wireframe_user.png" width="400px" height="300px"/>
+
+<img src="hub/src/main/resources/static/img/wireframe_register.png" width="400px" height="300px"/><img src="hub/src/main/resources/static/img/wireframe_profile.png" width="400px" height="300px"/>
+
+
 ### Technologies
 Java
 Spring Boot
@@ -35,4 +41,5 @@ We will need to learn how to create user profiles and store files in the SQL dat
 
 ### Project Tracker
 [Trello Board](https://trello.com/b/sC5BujXl/liftoff-project-board)
+
 [User Stories ](https://trello.com/b/M3UNF5wr/user-stories-translation-app)
