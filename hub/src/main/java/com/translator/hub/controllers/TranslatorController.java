@@ -1,11 +1,9 @@
 package com.translator.hub.controllers;
 
 import com.translator.hub.data.TranslatorRepository;
-import com.translator.hub.models.DTO.LoginFormDTO;
 import com.translator.hub.models.DTO.TranslatorLogFormDTO;
 import com.translator.hub.models.DTO.TranslatorRegFormDTO;
 import com.translator.hub.models.Translator;
-import com.translator.hub.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +19,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("translator")
+@RequestMapping("translator")
 public class TranslatorController {
 
     @Autowired
