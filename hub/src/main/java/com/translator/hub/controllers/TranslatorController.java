@@ -23,7 +23,7 @@ import java.util.Optional;
 public class TranslatorController {
 
     @Autowired
-    TranslatorRepository translatorRepository;
+    private TranslatorRepository translatorRepository;
 
     private static final String translationSessionKey = "translator";
 
@@ -146,6 +146,21 @@ public class TranslatorController {
             model.addAttribute("translator", translator);
         }
         return "translator/detail";
+    }
+
+//trying to add the correct mapping to iew translators - 1/3/22_AGB
+    @GetMapping("translator/{viewtranslators}")//path parameter translatorId. This piece of data customizes the response
+    public String displayViewTranslator(Model model, @PathVariable int translatorId) {
+
+        Optional optTranslator = translatorRepository.findById(translatorId);
+        if (optTranslator.isPresent()) {
+            Translator translator = (Translator) optTranslator.get();
+            model.addAttribute("translator", translator);
+
+            return "translator/viewtranslator";
+        } else {
+            return "redirect:../";
+        }
     }
 
 }
