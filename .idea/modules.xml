@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hub.iml" filepath="$PROJECT_DIR$/.idea/modules/hub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hub.main.iml" filepath="$PROJECT_DIR$/.idea/modules/hub.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hub.test.iml" filepath="$PROJECT_DIR$/.idea/modules/hub.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/mehmet-group.iml" filepath="$PROJECT_DIR$/.idea/mehmet-group.iml" />
     </modules>
   </component>
