@@ -7,3 +7,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/viewtranslators")
 public class ListController {
 }
+//This is my second attempt at updating the ListControlller - 1/3/22 4:50
