@@ -23,7 +23,7 @@ import java.util.Optional;
 public class TranslatorController {
 
     @Autowired
-    TranslatorRepository translatorRepository;
+    private TranslatorRepository translatorRepository;
 
     private static final String translationSessionKey = "translator";
 

@@ -70,7 +70,6 @@ public class HomeController {
 
 //        Searches for Translators by language
         List<Language> langObjs = (List<Language>) langRepository.findAllById(language);
-        newTranslator.setLanguage(langObjs);
 
 //        Create a new translator if not finding one by ID or
         Translator translator = translatorRepository.findById(translatorId).orElse(new Translator());
