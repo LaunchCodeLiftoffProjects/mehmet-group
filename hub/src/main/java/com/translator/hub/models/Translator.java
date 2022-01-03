@@ -128,4 +128,7 @@ public class Translator {
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
     }
+
+    public void setTranslator(Translator translator) {
+    }
 }
