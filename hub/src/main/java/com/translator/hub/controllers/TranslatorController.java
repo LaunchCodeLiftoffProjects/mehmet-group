@@ -7,15 +7,15 @@ import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -23,13 +23,13 @@ import java.util.Optional;
 public class TranslatorController {
 
     @Autowired
-    TranslatorRepository translatorRepository;
+    private TranslatorRepository translatorRepository;
 
     private static final String translationSessionKey = "translator";
 
     public Translator getTranslatorFromSession(HttpSession session) {
         Integer translatorId = (Integer) session.getAttribute(translationSessionKey);
-        if (translatorId ==null) {
+        if (translatorId == null) {
             return null;
         }
 
@@ -55,8 +55,8 @@ public class TranslatorController {
 
     @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute @Valid TranslatorRegFormDTO translatorRegFormDTO,
-                                          Errors errors, HttpServletRequest request,
-                                          Model model) {
+                                          Errors errors, HttpServletRequest request, @RequestParam("image") MultipartFile multipartFile,
+                                          Model model) throws IOException {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
@@ -79,9 +79,13 @@ public class TranslatorController {
             return "translator/register";
         }
 
-        Translator newUser = new Translator(translatorRegFormDTO.getFirstName(), translatorRegFormDTO.getLastName(),translatorRegFormDTO.getLanguage(), translatorRegFormDTO.getBio(), translatorRegFormDTO.getAddress(), translatorRegFormDTO.getImage(), translatorRegFormDTO.getEmail(), translatorRegFormDTO.getPassword());
-        translatorRepository.save(newUser);
-        setTranslatorInSession(request.getSession(), newUser);
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        Translator newTranslator = new Translator(translatorRegFormDTO.getFirstName(), translatorRegFormDTO.getLastName(), translatorRegFormDTO.getEmail(), translatorRegFormDTO.getLanguage(), translatorRegFormDTO.getAddress(), translatorRegFormDTO.getBio(), translatorRegFormDTO.getPassword());
+        newTranslator.setImage(fileName);
+        Translator savedTranslator = translatorRepository.save(newTranslator);
+        setTranslatorInSession(request.getSession(), newTranslator);
+        String uploadDir = "../hub/src/main/resources/static/translator-photos/" + savedTranslator.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return "redirect:";
     }
@@ -125,9 +129,23 @@ public class TranslatorController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return "redirect:/translator/login";
+    }
+
+    //lives at localhost:8080/detail?translatorId=3
+    @GetMapping("detail")
+    public String displayEventDetails(@RequestParam(required = false) Integer translatorId, Model model) {
+        Optional<Translator> result = translatorRepository.findById(translatorId);
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Translator Id" + translatorId);
+        } else {
+            Translator translator = result.get();
+            model.addAttribute("title", translator.getFirstName() + " Details");
+            model.addAttribute("translator", translator);
+        }
+        return "translator/detail";
     }
 
 }

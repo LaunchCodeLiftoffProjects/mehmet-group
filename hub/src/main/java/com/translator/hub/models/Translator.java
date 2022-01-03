@@ -45,18 +45,25 @@ public class Translator {
     @NotNull
     private String pwHash;
 
+    @Transient
+    public String getPhotosImagePath(){
+        if(image == null || id == 0){
+            return null;
+        }
+        return "/translator-photos/" + id + "/" + image;
+    }
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Translator() {
     }
-    public Translator(String firstname, String lastname,String language, String address, String bio, String image, String email, String password) {
+    public Translator(String firstname, String lastname,String email,String language, String address, String bio,  String password) {
         this.firstName = firstname;
         this.lastName = lastname;
         this.language = language;
         this.address = address;
         this.email = email;
         this.bio = bio;
-        this.image = image;
         this.pwHash = encoder.encode(password);
     }
 
@@ -88,17 +95,9 @@ public class Translator {
         this.bio = bio;
     }
 
-    public String getContactEmail() {
-        return email;
-    }
-    public void setContactEmail(String contactEmail) {
-        this.email = contactEmail;
-    }
-
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -128,5 +127,8 @@ public class Translator {
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
+    }
+
+    public void setTranslator(Translator translator) {
     }
 }

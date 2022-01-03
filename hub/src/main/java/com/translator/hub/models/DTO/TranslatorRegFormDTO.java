@@ -27,11 +27,10 @@ public class TranslatorRegFormDTO {
     @NotBlank(message = "Address can not be blank!")
     private String address;
 
-    private String image;
 
     @NotNull
     @NotBlank
-    @Email
+    @Email(message = "Invalid email. Enter valid email.")
     private String email;
 
     @NotNull
@@ -99,14 +98,6 @@ public class TranslatorRegFormDTO {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public void setVerifyPassword(String verifyPassword) {
