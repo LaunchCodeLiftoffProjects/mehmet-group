@@ -157,7 +157,7 @@ public class TranslatorController {
             Translator translator = (Translator) optTranslator.get();
             model.addAttribute("translator", translator);
 
-            return "translator/viewtranslator";
+            return "translator/viewtranslators";
         } else {
             return "redirect:../";
         }
