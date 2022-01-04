@@ -33,5 +33,6 @@ public class ListController {
         model.addAttribute("language", languageRepository.findAll());
         return "list";
     }
+
 }
 //This is my second attempt at updating the ListControlller - 1/3/22 4:50
