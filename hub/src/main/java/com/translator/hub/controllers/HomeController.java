@@ -6,6 +6,7 @@ import com.translator.hub.data.UserRepository;
 import com.translator.hub.models.Language;
 import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -45,13 +46,11 @@ public class HomeController {
     }
 
     //** Anita
-//    //allows use to display translators
-//    @GetMapping("view/{jobId}")
-//    public String displayViewJob(Model model, @PathVariable int jobId) {
-////    extends CrudRepository<Skill, Integer>
-//
-//        return "view";
-//    }
+
+ @GetMapping("view/{translatorId}")
+ public String displayViewTranslator(Model model, @PathVariable int translatorId) {
+       return "translator/viewtranslators";
+    }
 
     @GetMapping
     public String index() {
