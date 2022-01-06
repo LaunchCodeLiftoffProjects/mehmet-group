@@ -11,7 +11,7 @@ public interface TranslatorRepository extends CrudRepository <Translator, Intege
 
     //methods using repository
     public Translator findByEmail(String email);
-    public Translator listByLanguage(String language);
-    public Translator listByCountry(String country);
+//    public Translator listByLanguage(String language);
+//    public Translator listByCountry(String country);
 
 }
