@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
-
+<body >
+<div th:replace="fragments :: page-header"></div>
+<main class="container">
 <header th:replace="fragments :: header"></header>
 
 <form method="post" enctype="multipart/form-data">
@@ -73,5 +74,6 @@
     </div>
 
 </form>
+</main>
 </body>
 </html>
