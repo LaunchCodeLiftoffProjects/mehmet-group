@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository("translators")
 public interface TranslatorRepository extends CrudRepository <Translator, Integer> {
 
+    //methods using repository
     public Translator findByEmail(String email);
+    public Translator listByLanguage(String language);
+    public Translator listByCountry(String country);
 
 }

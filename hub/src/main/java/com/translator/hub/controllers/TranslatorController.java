@@ -170,10 +170,27 @@ public class TranslatorController {
 //My code needs to be something like this for listing all of the translators:
 //    Also look at the other controllers
 
+<<<<<<< Updated upstream
 //    @RequestMapping(value = "jobs")
 //    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
 //        Iterable<BatchProperties.Job> jobs;
 =======
+=======
+//My code needs to be something like this for listing all of the translators:
+// Also look at the other controllers
+
+    @RequestMapping(value = "jobs")
+    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
+        Iterable<Job> jobs;
+        if (column.toLowerCase().equals("all")){
+            jobs = jobRepository.findAll();
+            model.addAttribute("title", "All Jobs");
+        } else {
+            jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
+            model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
+        }
+        model.addAttribute("jobs", jobs);
+>>>>>>> Stashed changes
 
 //My code needs to be something like this for listing all of the translators:
 //    Also look at the other controllers
