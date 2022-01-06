@@ -9,7 +9,7 @@ public class LoginFormDTO {
 
     @NotNull
     @NotBlank
-    @Email
+    @Email(message = "Invalid email. Try again.")
     private String email;
 
     @NotNull

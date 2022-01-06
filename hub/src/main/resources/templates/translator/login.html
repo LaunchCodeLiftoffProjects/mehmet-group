@@ -3,6 +3,7 @@
 <head th:replace="fragments :: head">
 </head>
 <body>
+<div th:replace="fragments :: page-header"></div>
 <main class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-8">
@@ -10,13 +11,13 @@
             <form method="post">
                 <div class="form-group">
                     <label th:for="email">Email
-                        <input class="form-control" th:field="${translatorLogFormDTO.email}" required="required">
+                        <input class="form-control" th:field="${translatorLogFormDTO.email}" >
                     </label>
                     <p class="error" th:errors="${translatorLogFormDTO.email}"></p>
                 </div>
                 <div class="form-group">
                     <label>Password
-                        <input class="form-control" th:field="${translatorLogFormDTO.password}" type="password" required="required">
+                        <input class="form-control" th:field="${translatorLogFormDTO.password}" type="password" >
                     </label>
                     <p class="error" th:errors="${translatorLogFormDTO.password}"></p>
                 </div>
@@ -28,5 +29,6 @@
         </div>
     </div>
 </main>
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>
