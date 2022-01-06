@@ -11,17 +11,14 @@ import java.util.HashMap;
 
 @Controller
 
-//commented this out to try pointing to a different html page
-//@RequestMapping(value = "List")
-
-@RequestMapping(value = "translator/viewtranslators")
+@RequestMapping(value = "translator")
 public class ListController {
 
     @Autowired
     private TranslatorRepository translatorRepository;
 
     @Autowired
-    private LangRepository languageRepository;
+    private LangRepository langRepository;
 
     static HashMap<String, String> columnChoices = new HashMap<>();
 
@@ -34,8 +31,8 @@ public class ListController {
     @RequestMapping("")
     public String list(Model model) {
         model.addAttribute("translators", translatorRepository.findAll());
-        model.addAttribute("language", languageRepository.findAll());
-        return "list";
+        model.addAttribute("language", langRepository.findAll());
+        return "translator/viewtranslators";
     }
 
 }

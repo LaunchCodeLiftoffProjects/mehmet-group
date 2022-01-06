@@ -4,13 +4,13 @@
 
 <body class="container  body-content">
 
-<h1 th:text="${'Translator: ' + translator.name}">Default Title</h1>
+<h1 th:text="${'Translator: ' + translator.firstNameame}">Default Title</h1>
 
 <nav th:replace="fragments :: page-header"></nav>
 
-<div class="job-listing">
-    <p th:text="${'Name: ' + translator.name}"></p>
-    <p th:text="${'Languages: ' + translator.languages}"></p>
+<div class="table">
+    <p th:text="${'Name: ' + translator.firstName}"></p>
+    <p th:text="${'Languages: ' + translator.language}"></p>
 </div>
 
 

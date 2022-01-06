@@ -5,7 +5,6 @@ import com.translator.hub.models.DTO.TranslatorLogFormDTO;
 import com.translator.hub.models.DTO.TranslatorRegFormDTO;
 import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -146,19 +145,19 @@ public class TranslatorController {
             model.addAttribute("title", translator.getFirstName() + " Details");
             model.addAttribute("translator", translator);
         }
-        return "translator/detail";
+        return "detail";
     }
 
 
 //trying to add the correct mapping to view translators - 1/6/22/AGB
  //added lines 155-163
 
-@GetMapping ("")
+@GetMapping ("viewtranslators")
 public String index (Model model){
     model.addAttribute("translators", translatorRepository.findAll());
 
 
-    //responds with a list of all employers in the database
+    //responds with a list of all translators in the database
     return "translator/viewtranslators";//or should this be return employers/index?
 }
 }
