@@ -4,7 +4,21 @@
 
 <body class="container  body-content">
 
-Treat this like list.html from assignment 4 AGB 1/5/22
+<h1 th:text="${'Translator: ' + translator.name}">Default Title</h1>
+
+<nav th:replace="fragments :: page-header"></nav>
+
+<div class="job-listing">
+    <p th:text="${'Name: ' + translator.name}"></p>
+    <p th:text="${'Languages: ' + translator.languages}"></p>
+</div>
+
+
+</body>
+</html>
+
+<!--Treat this like list.html from assignment 4 AGB 1/5/22-->
+
 <!--<h1 th:text="${'Translators: ' + translator.name}">Translators List</h1>-->
 
 <!--<nav th:replace="fragments :: page-header"></nav>-->
@@ -21,49 +35,49 @@ Treat this like list.html from assignment 4 AGB 1/5/22
 <!--</div>-->
 
 
-</body>
-</html>
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
-</head>
-<body>
+<!--</body>-->
+<!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org/">-->
+<!--<head th:replace="fragments :: head">-->
+<!--</head>-->
+<!--<body>-->
 
-<div th:replace="fragments :: page-header"></div>
+<!--<div th:replace="fragments :: page-header"></div>-->
 
-<div class="container body-content">
-    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
-    <h2 class = "centered">View Translators</h2>
-</div>
+<!--<div class="container body-content">-->
+<!--    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>-->
+<!--    <h2 class = "centered">View Translators</h2>-->
+<!--</div>-->
 
-<table class="centeredTable">
-    <tr>
-        <th>All</th>
-        <th>Employer</th>
-        <th>Skill</th>
-    </tr>
+<!--<table class="centeredTable">-->
+<!--    <tr>-->
+<!--        <th>All</th>-->
+<!--        <th>Employer</th>-->
+<!--        <th>Skill</th>-->
+<!--    </tr>-->
 
-    <tr>
-        <td>
-            <li>
-                <a th:href="@{/list/jobs(column='All',value='View All')}">View All</a>
-            </li>
-        </td>
-        <td>
-            <li th:each="employer : ${employers}">
-                <a th:href="@{/list/jobs(column=employer,value=${employer.name})}" th:text="${employer.name}"></a>
-            </li>
-        </td>
-        <td>
-            <li th:each="skill : ${skills}">
-                <a th:href="@{/list/jobs(column=skill,value=${skill.name})}" th:text="${skill.name}"></a>
-            </li>
-        </td>
-    </tr>
-</table>
+<!--    <tr>-->
+<!--        <td>-->
+<!--            <li>-->
+<!--                <a th:href="@{/list/languages(column='All',value='View All')}">View All</a>-->
+<!--            </li>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <li th:each="translator : ${translators}">-->
+<!--                <a th:href="@{/list/languages(column=translator,value=${translator.name})}" th:text="${translator.name}"></a>-->
+<!--            </li>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <li th:each="language : ${languages}">-->
+<!--                <a th:href="@{/list/language(column=language,value=${language.name})}" th:text="${Language.name}"></a>-->
+<!--            </li>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->
 
 
 

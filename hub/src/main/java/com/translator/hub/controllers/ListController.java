@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping(value = "List")
+
+//commented this out to try pointing to a different html page
+//@RequestMapping(value = "List")
+
+@RequestMapping(value = "translator/viewtranslators")
 public class ListController {
 
     @Autowired

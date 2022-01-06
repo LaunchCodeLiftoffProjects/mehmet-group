@@ -148,9 +148,21 @@ public class TranslatorController {
         }
         return "translator/detail";
     }
+
+
+//trying to add the correct mapping to view translators - 1/6/22/AGB
+ //added lines 155-163
+
+@GetMapping ("")
+public String index (Model model){
+    model.addAttribute("translators", translatorRepository.findAll());
+
+
+    //responds with a list of all employers in the database
+    return "translator/viewtranslators";//or should this be return employers/index?
+}
 }
 
-//trying to add the correct mapping to view translators - 1/3/22_AGB
 //    @GetMapping("viewtranslators/{translatorId}")//path parameter translatorId. This piece of data customizes the response
 //    public String displayViewTranslator(Model model, @PathVariable int translatorId) {
 //
