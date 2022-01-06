@@ -126,7 +126,7 @@ public class TranslatorController {
 
         setTranslatorInSession(request.getSession(), theTranslator);
 
-        return "redirect:";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
