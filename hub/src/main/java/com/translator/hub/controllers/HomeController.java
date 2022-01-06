@@ -29,27 +29,40 @@ public class HomeController {
 
     private List<Translator> translatorsList;
 
+//agb try changing this chunk of code 1/5
+//    @RequestMapping("")
+//    public String index(Model model) {
+//        model.addAttribute("title", "Translators");
+//        return "index";
+  //  }
 
-    @RequestMapping("")
+//Added lines 40-44
+        @RequestMapping("")
     public String index(Model model) {
-        model.addAttribute("title", "Translators");
+        model.addAttribute("translators", translatorRepository.findAll());
         return "index";
-    }
+      }
+
 
     //add translators to repository using registration form
     @GetMapping("add")
     public String displayTranslatorRegForm(Model model) {
         model.addAttribute(new Translator());
-        model.addAttribute("translator", translatorRepository);
-        model.addAttribute("language", langRepository);
+
+        //model.addAttribute("translator", translatorRepository);
+        //model.addAttribute("language", langRepository);
+        //changing lines 52 and 53 AGB 1/5/22
+        model.addAttribute("translators", translatorRepository.findAll());
+        model.addAttribute("languages", langRepository.findAll());
+
         return "add";
     }
 
-    //** Anita
+    //** Anita to return individual translators 1/5 lines 63-71
 
  @GetMapping("view/{translatorId}")
  public String displayViewTranslator(Model model, @PathVariable int translatorId) {
-       return "translator/viewtranslators";
+       return "view";
     }
 
     @GetMapping

@@ -5,6 +5,7 @@ import com.translator.hub.models.DTO.TranslatorLogFormDTO;
 import com.translator.hub.models.DTO.TranslatorRegFormDTO;
 import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -163,22 +164,23 @@ public class TranslatorController {
 //        }
 //    }
 
+//
+//My code needs to be something like this for listing all of the translators:
+//    Also look at the other controllers
 
-My code needs to be something like this for listing all of the translators:
-    Also look at the other controllers
-
-    @RequestMapping(value = "jobs")
-    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
-        Iterable<Job> jobs;
-        if (column.toLowerCase().equals("all")){
-            jobs = jobRepository.findAll();
-            model.addAttribute("title", "All Jobs");
-        } else {
-            jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
-            model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
-        }
-        model.addAttribute("jobs", jobs);
-
-        return "list-jobs";
-    }
+//    @RequestMapping(value = "jobs")
+//    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
+//        Iterable<BatchProperties.Job> jobs;
+//        if (column.toLowerCase().equals("all")){
+//            jobs = jobRepository.findAll();
+//            model.addAttribute("title", "All Jobs");
+//        } else {
+//            jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
+//            model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
+//        }
+//        model.addAttribute("jobs", jobs);
+//
+//        return "list-jobs";
+   // }
 }
+
