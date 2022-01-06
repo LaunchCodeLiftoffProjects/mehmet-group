@@ -67,7 +67,7 @@ public class TranslatorController {
         Translator existingTranslator = translatorRepository.findByEmail(translatorRegFormDTO.getEmail());
 
         if (existingTranslator != null) {
-            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
+            errors.rejectValue("email", "email.alreadyexists", "A user with that email already exists");
             model.addAttribute("title", "Register");
             return "translator/register";
         }
@@ -148,6 +148,7 @@ public class TranslatorController {
         }
         return "translator/detail";
     }
+}
 
 //trying to add the correct mapping to view translators - 1/3/22_AGB
 //    @GetMapping("viewtranslators/{translatorId}")//path parameter translatorId. This piece of data customizes the response
@@ -164,6 +165,7 @@ public class TranslatorController {
 //        }
 //    }
 
+<<<<<<< HEAD
 //
 //My code needs to be something like this for listing all of the translators:
 //    Also look at the other controllers
@@ -171,6 +173,15 @@ public class TranslatorController {
 //    @RequestMapping(value = "jobs")
 //    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
 //        Iterable<BatchProperties.Job> jobs;
+=======
+
+//My code needs to be something like this for listing all of the translators:
+//    Also look at the other controllers
+//
+//    @RequestMapping(value = "jobs")
+//    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
+//        Iterable<Job> jobs;
+>>>>>>> 4969e9d92d1fbb88acfd3892d363db76885aad5b
 //        if (column.toLowerCase().equals("all")){
 //            jobs = jobRepository.findAll();
 //            model.addAttribute("title", "All Jobs");
@@ -181,6 +192,11 @@ public class TranslatorController {
 //        model.addAttribute("jobs", jobs);
 //
 //        return "list-jobs";
+<<<<<<< HEAD
    // }
 }
 
+=======
+//    }
+//}
+>>>>>>> 4969e9d92d1fbb88acfd3892d363db76885aad5b
