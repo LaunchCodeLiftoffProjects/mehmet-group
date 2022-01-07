@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class TranslatorLogFormDTO {
-
+    @NotBlank
     @Email(message = "Invalid email. Try again.")
     private String email;
 

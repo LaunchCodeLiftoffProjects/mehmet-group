@@ -6,7 +6,6 @@ import com.translator.hub.data.UserRepository;
 import com.translator.hub.models.Language;
 import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -27,29 +26,42 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-    private List<Translator> translatorsList;
+    private List<Translator> translators;
 
+//agb try changing this chunk of code 1/5
+//    @RequestMapping("")
+//    public String index(Model model) {
+//        model.addAttribute("title", "Translators");
+//        return "index";
+  //  }
 
+//Added lines 40-44
     @RequestMapping("")
     public String index(Model model) {
-        model.addAttribute("title", "Translators");
+        model.addAttribute("translators", translatorRepository.findAll());
         return "index";
-    }
+      }
+
 
     //add translators to repository using registration form
     @GetMapping("add")
     public String displayTranslatorRegForm(Model model) {
         model.addAttribute(new Translator());
-        model.addAttribute("translator", translatorRepository);
-        model.addAttribute("language", langRepository);
+
+        //model.addAttribute("translator", translatorRepository);
+        //model.addAttribute("language", langRepository);
+        //changing lines 52 and 53 AGB 1/5/22
+        model.addAttribute("translators", translatorRepository.findAll());
+        model.addAttribute("languages", langRepository.findAll());
+
         return "add";
     }
 
-    //** Anita
-
+    //** Anita to return individual translators 1/5 lines 63-71
+// view translator by ID
  @GetMapping("view/{translatorId}")
  public String displayViewTranslator(Model model, @PathVariable int translatorId) {
-       return "translator/viewtranslators";
+       return "view";
     }
 
     @GetMapping
@@ -59,7 +71,7 @@ public class HomeController {
 
 
 
-//    processing translators being added to repository ** I need advice here -Lindsey
+// I don't think we need this. Adds translators as a form  -Lindsey
     @PostMapping("add")
     public String processTranslatorForm(@ModelAttribute @Valid Translator newTranslator, Errors errors, Model model, @RequestParam int translatorId, @RequestParam List<Integer>language) {
         if (errors.hasErrors()) {

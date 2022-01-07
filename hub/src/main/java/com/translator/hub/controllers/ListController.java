@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping(value = "List")
+
+@RequestMapping(value = "translator")
 public class ListController {
 
     @Autowired
     private TranslatorRepository translatorRepository;
 
     @Autowired
-    private LangRepository languageRepository;
+    private LangRepository langRepository;
 
     static HashMap<String, String> columnChoices = new HashMap<>();
 
@@ -30,12 +31,9 @@ public class ListController {
     @RequestMapping("")
     public String list(Model model) {
         model.addAttribute("translators", translatorRepository.findAll());
-        model.addAttribute("language", languageRepository.findAll());
-        return "list";
+        model.addAttribute("language", langRepository.findAll());
+        return "translator/viewtranslators";
     }
 
 }
-//This is my second attempt at updating the ListControlller - 1/3/22 4:50
-
-//Update list controller
 
