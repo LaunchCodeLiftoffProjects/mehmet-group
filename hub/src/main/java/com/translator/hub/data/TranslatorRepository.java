@@ -1,6 +1,7 @@
 package com.translator.hub.data;
 
 import com.translator.hub.models.Translator;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -10,8 +11,13 @@ import org.springframework.stereotype.Repository;
 public interface TranslatorRepository extends CrudRepository <Translator, Integer> {
 
     //methods using repository
+
+
     public Translator findByEmail(String email);
 //    public Translator listByLanguage(String language);
 //    public Translator listByCountry(String country);
+
+
+
 
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+<body>
+<div th:replace="fragments :: page-header"></div>
+
+<h5>I have a document written in</h5>
+
+<form th:action="@{/search/results}" method = "post">
+    <p>
+        <label for="language1">Language:</label>
+        <input type="text" id="language1" name="language1">
+    </p>
+    <h5>That I want translated to</h5>
+    <p>
+        <label for="language2">Langauge:</label>
+        <input type="text" id="language2" name="language2">
+    </p>
+
+    <input type="submit" value="Show Translators">
+</form>
+
+
+
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>
