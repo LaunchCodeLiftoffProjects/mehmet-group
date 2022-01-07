@@ -66,7 +66,7 @@ public class TranslatorController {
         Translator existingTranslator = translatorRepository.findByEmail(translatorRegFormDTO.getEmail());
 
         if (existingTranslator != null) {
-            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
+            errors.rejectValue("firstName", "firstName already exists", "A user with that username already exists");
             model.addAttribute("title", "Register");
             return "translator/register";
         }
@@ -87,7 +87,7 @@ public class TranslatorController {
         String uploadDir = "../hub/src/main/resources/static/translator-photos/" + savedTranslator.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
-        return "redirect:";
+        return "redirect:/translator/detail?translatorId=" + savedTranslator.getId();
     }
 
     @GetMapping("/login")
@@ -164,21 +164,21 @@ public class TranslatorController {
 //    }
 
 
-My code needs to be something like this for listing all of the translators:
-    Also look at the other controllers
+//My code needs to be something like this for listing all of the translators:
+//    Also look at the other controllers
 
-    @RequestMapping(value = "jobs")
-    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
-        Iterable<Job> jobs;
-        if (column.toLowerCase().equals("all")){
-            jobs = jobRepository.findAll();
-            model.addAttribute("title", "All Jobs");
-        } else {
-            jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
-            model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
-        }
-        model.addAttribute("jobs", jobs);
-
-        return "list-jobs";
-    }
+//    @RequestMapping(value = "jobs")
+//    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
+//        Iterable<Job> jobs;
+//        if (column.toLowerCase().equals("all")){
+//            jobs = jobRepository.findAll();
+//            model.addAttribute("title", "All Jobs");
+//        } else {
+//            jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
+//            model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
+//        }
+//        model.addAttribute("jobs", jobs);
+//
+//        return "list-jobs";
+//    }
 }
