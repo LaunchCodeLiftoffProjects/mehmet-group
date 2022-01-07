@@ -46,6 +46,7 @@ public class TranslatorController {
         session.setAttribute(translationSessionKey, translator.getId());
     }
 
+    //lives at localhost:8080/translator/register
     @GetMapping("/register")
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new TranslatorRegFormDTO());
@@ -57,7 +58,6 @@ public class TranslatorController {
     public String processRegistrationForm(@ModelAttribute @Valid TranslatorRegFormDTO translatorRegFormDTO,
                                           Errors errors, HttpServletRequest request, @RequestParam("image") MultipartFile multipartFile,
                                           Model model) throws IOException {
-
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
             return "translator/register";
@@ -66,7 +66,7 @@ public class TranslatorController {
         Translator existingTranslator = translatorRepository.findByEmail(translatorRegFormDTO.getEmail());
 
         if (existingTranslator != null) {
-            errors.rejectValue("email", "email.alreadyexists", "A user with that email already exists");
+            errors.rejectValue("firstName", "firstName already exists", "A user with that username already exists");
             model.addAttribute("title", "Register");
             return "translator/register";
         }
@@ -87,7 +87,7 @@ public class TranslatorController {
         String uploadDir = "../hub/src/main/resources/static/translator-photos/" + savedTranslator.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
-        return "redirect:";
+        return "redirect:/translator/detail?translatorId=" + savedTranslator.getId();
     }
 
     @GetMapping("/login")
@@ -125,7 +125,7 @@ public class TranslatorController {
 
         setTranslatorInSession(request.getSession(), theTranslator);
 
-        return "redirect:/";
+        return "redirect:";
     }
 
     @GetMapping("/logout")
@@ -134,7 +134,7 @@ public class TranslatorController {
         return "redirect:/translator/login";
     }
 
-    //lives at localhost:8080/detail?translatorId=3
+    //lives at localhost:8080/translator/detail?translatorId=3
     @GetMapping("detail")
     public String displayEventDetails(@RequestParam(required = false) Integer translatorId, Model model) {
         Optional<Translator> result = translatorRepository.findById(translatorId);
@@ -145,23 +145,10 @@ public class TranslatorController {
             model.addAttribute("title", translator.getFirstName() + " Details");
             model.addAttribute("translator", translator);
         }
-        return "detail";
+        return "translator/detail";
     }
 
-
-//trying to add the correct mapping to view translators - 1/6/22/AGB
- //added lines 155-163
-
-@GetMapping ("viewtranslators")
-public String index (Model model){
-    model.addAttribute("translators", translatorRepository.findAll());
-
-
-    //responds with a list of all translators in the database
-    return "translator/viewtranslators";//or should this be return employers/index?
-}
-}
-
+//trying to add the correct mapping to view translators - 1/3/22_AGB
 //    @GetMapping("viewtranslators/{translatorId}")//path parameter translatorId. This piece of data customizes the response
 //    public String displayViewTranslator(Model model, @PathVariable int translatorId) {
 //
@@ -176,3 +163,22 @@ public String index (Model model){
 //        }
 //    }
 
+
+//My code needs to be something like this for listing all of the translators:
+//    Also look at the other controllers
+
+//    @RequestMapping(value = "jobs")
+//    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
+//        Iterable<Job> jobs;
+//        if (column.toLowerCase().equals("all")){
+//            jobs = jobRepository.findAll();
+//            model.addAttribute("title", "All Jobs");
+//        } else {
+//            jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
+//            model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
+//        }
+//        model.addAttribute("jobs", jobs);
+//
+//        return "list-jobs";
+//    }
+}
