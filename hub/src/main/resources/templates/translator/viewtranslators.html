@@ -4,13 +4,37 @@
 
 <body class="container  body-content">
 
-<h1 th:text="${'Translator: ' + translator.name}">Default Title</h1>
+
 
 <nav th:replace="fragments :: page-header"></nav>
 
-<div class="job-listing">
-    <p th:text="${'Name: ' + translator.name}"></p>
-    <p th:text="${'Languages: ' + translator.languages}"></p>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="translator : ${translators}">
+        <td th:text="${translator.Id}"> Id </td>
+        <td th:text="${translator.firstName}"> First Name </td>
+        <td th:text="${translator.lastName}"> Last Name </td>
+        </tr>
+        </tbody>
+
+
+
+    </table>
+
+
+
+
 </div>
 
 
