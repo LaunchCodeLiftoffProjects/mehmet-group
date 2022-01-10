@@ -148,37 +148,4 @@ public class TranslatorController {
         return "translator/detail";
     }
 
-//trying to add the correct mapping to view translators - 1/3/22_AGB
-//    @GetMapping("viewtranslators/{translatorId}")//path parameter translatorId. This piece of data customizes the response
-//    public String displayViewTranslator(Model model, @PathVariable int translatorId) {
-//
-//        Optional optTranslator = translatorRepository.findById(translatorId);
-//        if (optTranslator.isPresent()) {
-//            Translator translator = (Translator) optTranslator.get();
-//            model.addAttribute("translator", translator);
-//
-//            return "translator/viewtranslators";
-//        } else {
-//            return "redirect:../";
-//        }
-//    }
-
-
-//My code needs to be something like this for listing all of the translators:
-//    Also look at the other controllers
-
-//    @RequestMapping(value = "jobs")
-//    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
-//        Iterable<Job> jobs;
-//        if (column.toLowerCase().equals("all")){
-//            jobs = jobRepository.findAll();
-//            model.addAttribute("title", "All Jobs");
-//        } else {
-//            jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
-//            model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
-//        }
-//        model.addAttribute("jobs", jobs);
-//
-//        return "list-jobs";
-//    }
 }
