@@ -7,14 +7,12 @@
 <nav th:replace="fragments :: page-header"></nav>
 
 <div>
-    <table>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-
-
 
         </tr>
         </thead>
@@ -26,82 +24,10 @@
         </tr>
         </tbody>
 
-
-
     </table>
-
-
-
-
 
 </div>
 
 
 </body>
 </html>
-
-<!--Treat this like list.html from assignment 4 AGB 1/5/22-->
-
-<!--<h1 th:text="${'Translators: ' + translator.name}">Translators List</h1>-->
-
-<!--<nav th:replace="fragments :: page-header"></nav>-->
-
-<!--<div class="job-listing">-->
-<!--    <p th:text="${'Name: ' + translator.name}"></p>-->
-<!--    <p th:text="${'Address: ' + translator.address}"></p>-->
-<!--    <p th:text="${'Email: ' + translator.email}"></p>-->
-<!--    <p th:text="${'Language: ' + translator.language}"></p>-->
-<!--    <p th:text="${'Biography: ' + translator.bio}"></p>-->
-<!--    <p th:text="${'Photo: ' + translator.getPhotosImagePath}"></p>-->
-
-
-<!--</div>-->
-
-
-<!--</body>-->
-<!--</html>-->
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org/">-->
-<!--<head th:replace="fragments :: head">-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<div th:replace="fragments :: page-header"></div>-->
-
-<!--<div class="container body-content">-->
-<!--    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>-->
-<!--    <h2 class = "centered">View Translators</h2>-->
-<!--</div>-->
-
-<!--<table class="centeredTable">-->
-<!--    <tr>-->
-<!--        <th>All</th>-->
-<!--        <th>Employer</th>-->
-<!--        <th>Skill</th>-->
-<!--    </tr>-->
-
-<!--    <tr>-->
-<!--        <td>-->
-<!--            <li>-->
-<!--                <a th:href="@{/list/languages(column='All',value='View All')}">View All</a>-->
-<!--            </li>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <li th:each="translator : ${translators}">-->
-<!--                <a th:href="@{/list/languages(column=translator,value=${translator.name})}" th:text="${translator.name}"></a>-->
-<!--            </li>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <li th:each="language : ${languages}">-->
-<!--                <a th:href="@{/list/language(column=language,value=${language.name})}" th:text="${Language.name}"></a>-->
-<!--            </li>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--</table>-->
-
-<!--</body>-->
-<!--</html>-->
-
-
-
-
