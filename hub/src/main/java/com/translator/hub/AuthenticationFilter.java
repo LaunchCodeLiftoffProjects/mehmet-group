@@ -1,7 +1,7 @@
 package com.translator.hub;
 
 
-import com.translator.hub.controllers.AuthenticationController;
+import com.translator.hub.controllers.UserController;
 import com.translator.hub.data.UserRepository;
 import com.translator.hub.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     UserRepository userRepository;
 
     @Autowired
-    AuthenticationController authenticationController;
+    UserController userController;
 
     private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/css");
 
@@ -33,7 +33,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
         }
 
         HttpSession session = request.getSession();
-        User user = authenticationController.getUserFromSession(session);
+        User user = userController.getUserFromSession(session);
 
         //The user is logged in
         if (user != null) {
