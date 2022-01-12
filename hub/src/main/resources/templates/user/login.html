@@ -11,6 +11,12 @@
             <div> <h1>Log into your account</h1></div>
             <form method="post">
                 <div class="form-group">
+                    <div th:if="${param.error}">
+                        Invalid username and password.
+                    </div>
+                    <div th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
                     <label th:for="email">Email
                         <input class="form-control" th:field="${loginFormDTO.email}" >
                     </label>
