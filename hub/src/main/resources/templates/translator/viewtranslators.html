@@ -22,8 +22,14 @@
         </thead>
         <tbody>
         <tr th:each="translator : ${translators}">
-        <td th:text="${translator.Id}"> Id </td>
-        <td th:text="${translator.firstName}"> First Name </td>
+<!--                <a th:href="@{/detail{translator}(translator=${translator.translatorId)}">-->
+<!-- <span th:text="${translator.firstName}"></span></a>-->
+
+
+<p>
+    <a th:href="@{'translator/detail' + ${translator.id}}"  th:text="${translator.id}"></a>
+</p>
+            <td th:text="${translator.firstName}"> First Name </td>
         <td th:text="${translator.lastName}"> Last Name </td>
         <td th:text="${translator.language}"> Languages </td>
         <td th:text="${translator.address}"> Address </td>
@@ -35,7 +41,11 @@
     </table>
 
 </div>
-
-
 </body>
 </html>
+
+<!--<td>-->
+<!--    <li th:each="employer : ${employers}">-->
+<!--        <a th:href="@{/list/jobs(column=employer,value=${employer.name})}" th:text="${employer.name}"></a>-->
+<!--    </li>-->
+<!--</td>-->
