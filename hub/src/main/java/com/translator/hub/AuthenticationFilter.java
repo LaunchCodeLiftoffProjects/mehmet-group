@@ -22,7 +22,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     @Autowired
     UserController userController;
 
-    private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/css");
+    private static final List<String> whitelist = Arrays.asList("","/user/login", "/user/register", "/user/logout", "/css");
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
@@ -40,7 +40,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
             return true;
         }
         //The user is not logged in
-        response.sendRedirect("/login");
+        response.sendRedirect("/user/login");
         return false;
     }
 
