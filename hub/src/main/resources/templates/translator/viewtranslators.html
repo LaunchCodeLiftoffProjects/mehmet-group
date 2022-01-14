@@ -26,9 +26,17 @@
 <!-- <span th:text="${translator.firstName}"></span></a>-->
 
 
-<p>
-    <a th:href="@{'translator/detail' + ${translator.id}}"  th:text="${translator.id}"></a>
-</p>
+<!--<p>-->
+
+<!--&lt;!&ndash;    <a th:href="@{'/detail/' + ${translator.id}}"  th:text="${translator.id}"></a>&ndash;&gt;-->
+<!--</p>-->
+
+
+
+
+            <td><a th:text="${translator.id}"
+                   th:href="'/translator/detail?translatorId='+ ${translator.id}"></a>
+            </td>
             <td th:text="${translator.firstName}"> First Name </td>
         <td th:text="${translator.lastName}"> Last Name </td>
         <td th:text="${translator.language}"> Languages </td>
