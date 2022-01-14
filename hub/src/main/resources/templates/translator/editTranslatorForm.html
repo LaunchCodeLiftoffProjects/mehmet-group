@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body >
+<div th:replace="fragments :: page-header"></div>
+<main class="container">
+    <form ction="#" th:action="@{/translator/editTranslator}"
+           method="post" enctype="multipart/form-data">
+        <div class="p-t-10">
+            <input type="hidden" name="translatorId" th:value="${translator.id}" />
+        </div>
+        <div class="form-group">
+            <label>First Name
+                <input class="form-control" th:field="${translator.firstName}"/>
+            </label>
+            <p class="error" th:errors="${translator.firstName}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Last Name
+                <input class="form-control" th:field="${translator.lastName}"/>
+            </label>
+            <p class="error" th:errors="${translator.lastName}"></p>
+        </div>
+        <div class="form-group">
+            <label>Email
+                <input class="form-control" th:field="${translator.email}"/>
+            </label>
+            <p class="error" th:errors="${translator.email}"></p>
+        </div>
+        <div class="form-group">
+            <label>Language
+                <input class="form-control" th:field="${translator.language}"/>
+            </label>
+            <p class="error" th:errors="${translator.language}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Biography
+                <textarea class="form-control" rows="3" th:field="${translator.bio}"/>
+            </label>
+            <p class="error" th:errors="${translator.bio}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Address
+                <textarea class="form-control" rows="3" th:field="${translator.address}"/>
+            </label>
+            <p class="error" th:errors="${translator.address}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Upload Photo
+                <input class="form-control" type="file" name="image" accept="image/png, image/jpeg"/>
+            </label>
+            <p>Upload your photo. Max file size 50 MB</p>
+            <p class="error" ></p>
+        </div>
+
+        <br>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Edit"/>
+        </div>
+
+    </form>
+</main>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

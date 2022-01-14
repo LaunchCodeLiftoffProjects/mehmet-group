@@ -46,6 +46,17 @@ public class TranslatorController {
         session.setAttribute(translationSessionKey, translator.getId());
     }
 
+    //respond for localhost:8080/translator
+    @GetMapping
+    public String displayTranslators(Model model) {
+
+        model.addAttribute("title", "All Translators");
+        model.addAttribute("translators", translatorRepository.findAll());
+
+        return "translator/index";
+    }
+
+
     //lives at localhost:8080/translator/register
     @GetMapping("/register")
     public String displayRegistrationForm(Model model) {
@@ -148,4 +159,50 @@ public class TranslatorController {
         return "translator/detail";
     }
 
+    //lives at localhost:8080/translator/editTranslator?translatorId=3
+    @GetMapping("/editTranslator")
+    public String showEditTranslatorForm(@RequestParam(required = false) Integer translatorId, Model model) {
+        Optional<Translator> result = translatorRepository.findById(translatorId);
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Translator by Id" + translatorId + "Not found!");
+        } else {
+            Translator translator = result.get();
+            model.addAttribute("title", "Edit" + translator.getFirstName());
+            model.addAttribute("translator", translator);
+        }
+        return "translator/editTranslatorForm";
+    }
+
+
+    @PostMapping("/editTranslator")
+    public String processTranslatorEditForm(@ModelAttribute @Valid Translator editedTranslator, @RequestParam String translatorId,
+                                            Errors errors, HttpServletRequest request, @RequestParam("image") MultipartFile multipartFile,
+                                            Model model) throws IOException {
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Edit");
+            return "translator/editTranslatorForm";
+        }
+        Translator translatorUpdated = translatorRepository.findById(editedTranslator.getId()).orElse(null);
+        translatorUpdated.setFirstName(editedTranslator.getFirstName());
+        translatorUpdated.setLastName(editedTranslator.getLastName());
+        translatorUpdated.setEmail(editedTranslator.getEmail());
+        translatorUpdated.setAddress(editedTranslator.getAddress());
+        translatorUpdated.setLanguage(editedTranslator.getLanguage());
+        translatorUpdated.setBio(editedTranslator.getBio());
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        translatorUpdated.setImage(fileName);
+        translatorRepository.save(translatorUpdated);
+
+        String uploadDir = "../hub/src/main/resources/static/translator-photos/" + translatorUpdated.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+        return "redirect:/translator/detail?translatorId=" + translatorUpdated.getId();
+    }
+
+    //lives at localhost:8080/translator/deleteTranslator?translatorId=3
+    @PostMapping("/deleteTranslator")
+    public String deleteTranslator(@RequestParam(required = false) Integer translatorId, Model model) {
+        translatorRepository.deleteById(translatorId);
+        return "redirect:";
+    }
 }
