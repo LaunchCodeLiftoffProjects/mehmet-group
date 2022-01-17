@@ -4,6 +4,7 @@
 <body class="container-fluid">
 <div th:replace="fragments :: page-header"></div>
 <div class="container mt-5">
+    <h1 th:text="${title}">Translator</h1>
     <div class="row d-flex justify-content-center">
         <p th:unless="${translators} and ${translators.size()}">No Translators!</p>
         <table class="table table-striped">
@@ -19,7 +20,6 @@
                 <td><a th:text="${translator.firstName}"
                        th:href="'/translator/detail?translatorId='+ ${translator.id}"></a>
                 </td>
-
                 <td>
                     <form class="column1" th:action="@{/translator/editTranslator}" method="get">
                         <input type="hidden" name="translatorId" th:value="${translator.id}"/>

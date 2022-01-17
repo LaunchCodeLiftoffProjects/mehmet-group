@@ -4,49 +4,49 @@
 <body >
 <div th:replace="fragments :: page-header"></div>
 <main class="container">
-    <form ction="#" th:action="@{/translator/editTranslator}"
-           method="post" enctype="multipart/form-data">
+    <h1 th:text="${title}">Translator</h1>
+    <form th:action="@{/translator/editTranslator}" method="post" enctype="multipart/form-data">
         <div class="p-t-10">
-            <input type="hidden" name="translatorId" th:value="${translator.id}" />
+            <input type="hidden" name="translatorId" th:value="${translatorId}" />
         </div>
         <div class="form-group">
             <label>First Name
-                <input class="form-control" th:field="${translator.firstName}"/>
+                <input class="form-control" th:field="${translatorUpdate.firstName}"/>
             </label>
-            <p class="error" th:errors="${translator.firstName}"></p>
+            <p class="error" th:errors="${translatorUpdate.firstName}"></p>
         </div>
 
         <div class="form-group">
             <label>Last Name
-                <input class="form-control" th:field="${translator.lastName}"/>
+                <input class="form-control" th:field="${translatorUpdate.lastName}"/>
             </label>
-            <p class="error" th:errors="${translator.lastName}"></p>
+            <p class="error" th:errors="${translatorUpdate.lastName}"></p>
         </div>
         <div class="form-group">
             <label>Email
-                <input class="form-control" th:field="${translator.email}"/>
+                <input class="form-control" th:field="${translatorUpdate.email}"/>
             </label>
-            <p class="error" th:errors="${translator.email}"></p>
+            <p class="error" th:errors="${translatorUpdate.email}"></p>
         </div>
         <div class="form-group">
             <label>Language
-                <input class="form-control" th:field="${translator.language}"/>
+                <input class="form-control" th:field="${translatorUpdate.language}"/>
             </label>
-            <p class="error" th:errors="${translator.language}"></p>
+            <p class="error" th:errors="${translatorUpdate.language}"></p>
         </div>
 
         <div class="form-group">
             <label>Biography
-                <textarea class="form-control" rows="3" th:field="${translator.bio}"/>
+                <textarea class="form-control" rows="3" th:field="${translatorUpdate.bio}"/>
             </label>
-            <p class="error" th:errors="${translator.bio}"></p>
+            <p class="error" th:errors="${translatorUpdate.bio}"></p>
         </div>
 
         <div class="form-group">
             <label>Address
-                <textarea class="form-control" rows="3" th:field="${translator.address}"/>
+                <textarea class="form-control" rows="3" th:field="${translatorUpdate.address}"/>
             </label>
-            <p class="error" th:errors="${translator.address}"></p>
+            <p class="error" th:errors="${translatorUpdate.address}"></p>
         </div>
 
         <div class="form-group">

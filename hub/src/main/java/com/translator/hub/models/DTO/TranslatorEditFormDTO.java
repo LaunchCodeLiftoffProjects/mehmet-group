@@ -5,7 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class TranslatorRegFormDTO {
+public class TranslatorEditFormDTO {
+
     @NotNull
     @NotBlank
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
@@ -72,5 +73,4 @@ public class TranslatorRegFormDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }
