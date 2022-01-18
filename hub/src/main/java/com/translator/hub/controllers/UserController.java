@@ -1,130 +1,70 @@
 package com.translator.hub.controllers;
 
-import com.translator.hub.data.UserRepository;
-import com.translator.hub.models.DTO.LoginFormDTO;
-import com.translator.hub.models.DTO.RegisterFormDTO;
+import com.translator.hub.models.DTO.UserForm;
 import com.translator.hub.models.User;
+import com.translator.hub.service.EmailExistsException;
+import com.translator.hub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Optional;
+import java.security.Principal;
+
 
 @Controller
-@RequestMapping("user")
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
-    private static final String userSessionKey = "user";
+    protected static final String MESSAGE_KEY = "message";
 
-    public User getUserFromSession(HttpSession session) {
-        Integer userId = (Integer) session.getAttribute(userSessionKey);
-        if (userId == null) {
-            return null;
-        }
-
-        Optional<User> user = userRepository.findById(userId);
-
-        if (user.isEmpty()) {
-            return null;
-        }
-
-        return user.get();
+    @ModelAttribute("user")
+    public User getLoggedInUser(Principal principal) {
+        if (principal != null)
+            return userService.findByEmail(principal.getName());
+        return null;
     }
 
-    private static void setUserInSession(HttpSession session, User user) {
-        session.setAttribute(userSessionKey, user.getId());
-    }
-
-    @GetMapping("/register")
-    public String displayRegistrationForm(Model model) {
-        model.addAttribute(new RegisterFormDTO());
+    @GetMapping(value = "/register")
+    public String registerForm(Model model) {
+        model.addAttribute(new UserForm());
         model.addAttribute("title", "Register");
         return "user/register";
     }
 
-    @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
-                                          Errors errors, HttpServletRequest request,
-                                          Model model) {
+    @PostMapping(value = "/register")
+    public String register(@ModelAttribute @Valid UserForm userForm, Errors errors) {
 
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Register");
+        if (errors.hasErrors())
             return "user/register";
+
+        try {
+            userService.save(userForm);
+        } catch (EmailExistsException e) {
+            errors.rejectValue("email", "email.alreadyexists", e.getMessage());
+            return "register";
         }
-
-        User existingUser = userRepository.findByEmail(registerFormDTO.getEmail());
-
-        if (existingUser != null) {
-            errors.rejectValue("email", "email.alreadyexists", "A user with that email already exists");
-            model.addAttribute("title", "Register");
-            return "user/register";
-        }
-
-        String password = registerFormDTO.getPassword();
-        String verifyPassword = registerFormDTO.getVerifyPassword();
-        if (!password.equals(verifyPassword)) {
-            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            model.addAttribute("title", "Register");
-            return "user/register";
-        }
-
-        User newUser = new User(registerFormDTO.getFirstName(), registerFormDTO.getLastName(), registerFormDTO.getEmail(), registerFormDTO.getPassword());
-        userRepository.save(newUser);
-        setUserInSession(request.getSession(), newUser);
 
         return "redirect:/user/login";
     }
 
+    @GetMapping(value = "/login")
+    public String login(Model model, Principal user, String error, String logout) {
 
-    @GetMapping("/login")
-    public String displayLoginForm(Model model) {
-        model.addAttribute(new LoginFormDTO());
-        model.addAttribute("title", "Log In");
+        if (user != null)
+            return "redirect:/";
+
+        if (error != null)
+            model.addAttribute(MESSAGE_KEY, "danger|Your username and password are invalid");
+
+        if (logout != null)
+            model.addAttribute(MESSAGE_KEY, "info|You have logged out");
+
         return "user/login";
     }
 
-    @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
-                                   Errors errors, HttpServletRequest request,
-                                   Model model) {
-
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Log In");
-            return "user/login";
-        }
-
-        User theUser = userRepository.findByEmail(loginFormDTO.getEmail());
-
-        if (theUser == null) {
-            errors.rejectValue("email", "user.invalid", "The given email does not exist");
-            model.addAttribute("title", "Log In");
-            return "user/login";
-        }
-
-        String password = loginFormDTO.getPassword();
-
-        if (!theUser.isMatchingPassword(password)) {
-            errors.rejectValue("password", "password.invalid", "Invalid password");
-            model.addAttribute("title", "Log In");
-            return "user/login";
-        }
-
-        setUserInSession(request.getSession(), theUser);
-
-        return "redirect:../";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
-        request.getSession().invalidate();
-        return "redirect:/user/login";
-    }
 }

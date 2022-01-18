@@ -5,37 +5,45 @@
 
 <div th:replace="fragments :: page-header"></div>
 
-<main class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <div> <h1>Log into your account</h1></div>
-            <form method="post">
-                <div class="form-group">
-                    <div th:if="${param.error}">
-                        Invalid username and password.
-                    </div>
-                    <div th:if="${param.logout}">
-                        You have been logged out.
-                    </div>
-                    <label th:for="email">Email
-                        <input class="form-control" th:field="${loginFormDTO.email}" >
-                    </label>
-                    <p class="error" th:errors="${loginFormDTO.email}"></p>
-                </div>
-                <div class="form-group">
-                    <label>Password
-                        <input class="form-control" th:field="${loginFormDTO.password}" type="password" >
-                    </label>
-                    <p class="error" th:errors="${loginFormDTO.password}"></p>
-                </div>
-                <br>
-                <input type="submit" class="btn btn-primary" value="Log In" />
-            </form>
+<div th:replace="fragments :: messages"></div>
 
+
+
+<main class="container-fluid">
+
+    <div class="row justify-content-center">
+
+
+        <form method="post" th:action="@{/login}" class="col-8">
+            <div class="form-group">
+                <h1>Log into your account</h1>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" class="form-control" name="email"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" class="form-control" type="password" name="password" />
+            </div>
+
+            <div class="form-group">
+                <input id="remember-me" type="checkbox" name="remember-me" />
+                <label for="remember-me">Remember Me</label>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="submit"><i class="fas fa-sign-in-alt"></i> Log In</button>
+            <br>
             <p>Don't have an account? <a href="/user/register">Register</a></p>
-        </div>
+        </form>
+
+
     </div>
+
+
 </main>
+</body>
 <div th:replace="fragments :: footer"></div>
 </body>
 </html>
