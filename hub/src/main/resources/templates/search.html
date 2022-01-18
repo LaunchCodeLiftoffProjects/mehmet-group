@@ -5,9 +5,9 @@
 <div th:replace="fragments :: page-header"></div>
 <div th:replace="fragments :: messages"></div>
 
-<h5>I have a document written in</h5>
+<!--<h5>I have a document written in</h5>-->
 
-<form th:action="@{/search/results}" method = "post">
+<!--<form th:action="@{/search/results}" method = "post">
     <p>
         <label for="language1">Language:</label>
         <input type="text" id="language1" name="language1">
@@ -19,7 +19,36 @@
     </p>
 
     <input type="submit" value="Show Translators">
+</form>-->
+
+<h5>We provide matches for English to foreign language</h5>
+<h5>Or foreign language to English translations.</h5>
+<br>
+<br>
+<h5>Please enter the foreign language</h5>
+<h5>To be used for this translation:</h5>
+
+<form th:action="@{/search/results}" method = "post">
+    <p>
+        <label for="language1">Language:</label>
+        <input type="text" id="language1" name="language1" required>
+    </p>
+        <input type="submit" value="Show Translators">
 </form>
+
+<table class="table table-striped">
+    <tbody>
+        <tr th:each="translator : ${translators}">
+            <td><a th:href="@{'/translator/detail?translatorId=' + ${translatorId}}" th:text="${translator.Id}"></a> Id </td>
+            <td th:text="${translator.firstName}"> First Name </td>
+            <td th:text="${translator.lastName}"> Last Name </td>
+            <td th:text="${translator.language}"> Languages </td>
+            <td th:text="${translator.address}"> Address </td>
+            <td th:text="${translator.bio}"> Bio Info </td>
+
+        </tr>
+    </tbody>
+</table>
 
 
 

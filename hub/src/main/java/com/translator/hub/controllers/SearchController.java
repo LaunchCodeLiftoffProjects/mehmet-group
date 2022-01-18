@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("search")
@@ -25,8 +26,19 @@ public class SearchController {
     }
 
     @PostMapping("results")
-    public String displaySearchResults(Model model, @RequestParam String language1, @RequestParam String language2){
+    public String displaySearchResults(Model model, @RequestParam String language1){
         Iterable<Translator> translators;
+        translators = translatorRepository.findAll();
+
+        ArrayList<Translator> results = new ArrayList<>();
+
+        for (Translator translator : translators) {
+            if (translator.getLanguage() != null && translator.getLanguage().toLowerCase().contains(language1.toLowerCase())) {
+                results.add(translator);
+            }
+        }
+
+        model.addAttribute("translators", results);
 
 
         return "search";
