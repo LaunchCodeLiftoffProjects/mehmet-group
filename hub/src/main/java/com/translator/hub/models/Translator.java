@@ -24,6 +24,8 @@ public class Translator {
     private String address;
     private String image;
     private String email;
+    private String pwHash;
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Transient
     public String getPhotosImagePath() {
@@ -35,13 +37,14 @@ public class Translator {
 
     public Translator() {
     }
-    public Translator(String firstname, String lastname, String email, String language, String address, String bio) {
+    public Translator(String firstname, String lastname, String email, String language, String address, String bio, String password) {
         this.firstName = firstname;
         this.lastName = lastname;
         this.language = language;
         this.address = address;
         this.email = email;
         this.bio = bio;
+        this.pwHash = encoder.encode(password);
     }
 
     public int getId() {
@@ -102,6 +105,10 @@ public class Translator {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
     }
 
     public void setTranslator(Translator translator) {

@@ -78,13 +78,22 @@ public class TranslatorController {
         Translator existingTranslator = translatorRepository.findByEmail(translatorRegFormDTO.getEmail());
 
         if (existingTranslator != null) {
-            errors.rejectValue("firstName", "firstName already exists", "A user with that email already exists");
+            errors.rejectValue("firstName", "firstName already exists", "A user with that username already exists");
+            model.addAttribute("title", "Register");
+            return "translator/register";
+        }
+
+        String password = translatorRegFormDTO.getPassword();
+        String verifyPassword = translatorRegFormDTO.getVerifyPassword();
+        if (!password.equals(verifyPassword)) {
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             model.addAttribute("title", "Register");
             return "translator/register";
         }
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        Translator newTranslator = new Translator(translatorRegFormDTO.getFirstName(), translatorRegFormDTO.getLastName(), translatorRegFormDTO.getEmail(), translatorRegFormDTO.getLanguage(), translatorRegFormDTO.getAddress(), translatorRegFormDTO.getBio());
+        Translator newTranslator = new Translator(translatorRegFormDTO.getFirstName(), translatorRegFormDTO.getLastName(), translatorRegFormDTO.getEmail(),
+                translatorRegFormDTO.getLanguage(), translatorRegFormDTO.getAddress(), translatorRegFormDTO.getBio(), translatorRegFormDTO.getPassword());
         newTranslator.setImage(fileName);
         Translator savedTranslator = translatorRepository.save(newTranslator);
         setTranslatorInSession(request.getSession(), newTranslator);
@@ -92,6 +101,49 @@ public class TranslatorController {
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return "redirect:/translator/detail?translatorId=" + savedTranslator.getId();
+    }
+
+    @GetMapping("/login")
+    public String displayLoginForm(Model model) {
+        model.addAttribute(new TranslatorLogFormDTO());
+        model.addAttribute("title", "Log In");
+        return "translator/login";
+    }
+
+    @PostMapping("/login")
+    public String processLoginForm(@ModelAttribute @Valid TranslatorLogFormDTO translatorLogFormDTO,
+                                   Errors errors, HttpServletRequest request,
+                                   Model model) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Log In");
+            return "translator/login";
+        }
+
+        Translator theTranslator = translatorRepository.findByEmail(translatorLogFormDTO.getEmail());
+
+        if (theTranslator == null) {
+            errors.rejectValue("email", "translator.invalid", "The given email does not exist");
+            model.addAttribute("title", "Log In");
+            return "translator/login";
+        }
+
+        String password = translatorLogFormDTO.getPassword();
+
+        if (!theTranslator.isMatchingPassword(password)) {
+            errors.rejectValue("password", "password.invalid", "Invalid password");
+            model.addAttribute("title", "Log In");
+            return "translator/login";
+        }
+        setTranslatorInSession(request.getSession(), theTranslator);
+
+        return "redirect:";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/translator/login";
     }
 
     //lives at localhost:8080/translator/detail?translatorId=3

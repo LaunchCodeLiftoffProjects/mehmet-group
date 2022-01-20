@@ -54,6 +54,18 @@
             <p>Upload your photo. Max file size 50 MB</p>
             <p class="error"></p>
         </div>
+        <div class="form-group">
+            <label>Password
+                <input class="form-control" th:field="${translatorRegFormDTO.password}" type="password"/>
+            </label>
+            <p class="error" th:errors="${translatorRegFormDTO.password}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Verify Password
+                <input class="form-control" th:field="${translatorRegFormDTO.verifyPassword}" type="password"/>
+            </label>
+        </div>
         <br>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Register"/>
