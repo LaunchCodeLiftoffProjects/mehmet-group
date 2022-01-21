@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+
+<form th:action="@{/search/results}" method = "post">
+    <select>
+        <option th:each="language : ${languages}"
+                th:text="${language}">
+    </select>
+    <input type="submit" value="Show Translators">
+</form>
+
+
+</body>
+</html>

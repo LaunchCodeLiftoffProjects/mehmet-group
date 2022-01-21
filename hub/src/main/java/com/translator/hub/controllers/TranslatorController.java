@@ -1,9 +1,11 @@
 package com.translator.hub.controllers;
 
+import com.translator.hub.data.LangRepository;
 import com.translator.hub.data.TranslatorRepository;
 import com.translator.hub.models.DTO.TranslatorEditFormDTO;
 import com.translator.hub.models.DTO.TranslatorLogFormDTO;
 import com.translator.hub.models.DTO.TranslatorRegFormDTO;
+import com.translator.hub.models.Language;
 import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,9 @@ public class TranslatorController {
 
     @Autowired
     private TranslatorRepository translatorRepository;
+
+    @Autowired
+    private LangRepository langRepository;
 
     private static final String translationSessionKey = "translator";
 
@@ -95,6 +100,11 @@ public class TranslatorController {
         Translator newTranslator = new Translator(translatorRegFormDTO.getFirstName(), translatorRegFormDTO.getLastName(), translatorRegFormDTO.getEmail(),
                 translatorRegFormDTO.getLanguage(), translatorRegFormDTO.getAddress(), translatorRegFormDTO.getBio(), translatorRegFormDTO.getPassword());
         newTranslator.setImage(fileName);
+
+        //adds languages from the register form to langRepository if they don't already exist
+        splitAndSave(newTranslator.getLanguage());
+
+
         Translator savedTranslator = translatorRepository.save(newTranslator);
         setTranslatorInSession(request.getSession(), newTranslator);
         String uploadDir = "../hub/src/main/resources/static/translator-photos/" + savedTranslator.getId();
@@ -191,7 +201,7 @@ public class TranslatorController {
         }
 
         //Updating Translator object fields
-        Translator translatorUpdated = translatorRepository.findById(Integer.parseInt( translatorId)).orElse(null);
+        Translator translatorUpdated = translatorRepository.findById(Integer.parseInt(translatorId)).orElse(null);
         translatorUpdated.setFirstName(editedTranslator.getFirstName());
         translatorUpdated.setLastName(editedTranslator.getLastName());
         translatorUpdated.setEmail(editedTranslator.getEmail());
@@ -213,6 +223,10 @@ public class TranslatorController {
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         }
 
+        //adds any new languages added in the edit to language repository
+        splitAndSave(translatorUpdated.getLanguage());
+
+
         translatorRepository.save(translatorUpdated);
 
 
@@ -226,5 +240,23 @@ public class TranslatorController {
 
         translatorRepository.deleteById(translatorId);
         return "redirect:";
+    }
+
+
+    public void splitAndSave(String languageInput) {
+
+        String[] languages;
+
+        languages = languageInput.replaceAll(",\\s|\\s", ",").split(",");
+
+        for (String language : languages) {
+
+            Language existingLanguage = langRepository.findByName(language);
+
+            if (existingLanguage == null) {
+                Language newLanguage = new Language(language);
+                langRepository.save(newLanguage);
+            }
+        }
     }
 }

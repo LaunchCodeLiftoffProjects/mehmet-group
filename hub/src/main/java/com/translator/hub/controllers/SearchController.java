@@ -21,11 +21,11 @@ public class SearchController {
 
     @RequestMapping("")
     public String search(Model model) {
-        model.addAttribute("search", "search");
+//        model.addAttribute("search", "search");
         return "search";
     }
 
-    @PostMapping("results")
+  /*  @PostMapping("results")
     public String displaySearchResults(Model model, @RequestParam String language1){
         Iterable<Translator> translators;
         translators = translatorRepository.findAll();
@@ -39,6 +39,19 @@ public class SearchController {
         }
 
         model.addAttribute("translators", results);
+
+
+        return "search";
+    }*/
+
+    @PostMapping("results")
+    public String displaySearchResults(Model model, @RequestParam String language1){
+        Iterable<Translator> translators;
+        translators = translatorRepository.findByLanguageContainsIgnoreCase(language1);
+
+
+
+        model.addAttribute("translators", translators);
 
 
         return "search";

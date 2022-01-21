@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface LangRepository extends CrudRepository<Language, Integer> {
 
     //methods using repository
-//    public Language listTranslatorsByLanguage (String Language);
+    public Language findByName (String name);
 
 }
