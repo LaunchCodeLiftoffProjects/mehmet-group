@@ -43,6 +43,8 @@ public class UserController {
             return "user/register";
 
         try {
+            System.out.println("---------------------------------");
+            System.out.println("userForm.FirstName: " + userForm.getFirstName());
             userService.save(userForm);
         } catch (EmailExistsException e) {
             errors.rejectValue("email", "email.alreadyexists", e.getMessage());

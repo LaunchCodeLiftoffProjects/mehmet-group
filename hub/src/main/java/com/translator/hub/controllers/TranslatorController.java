@@ -189,6 +189,8 @@ public class TranslatorController {
             model.addAttribute("title", "Edit");
             return "translator/editTranslatorForm";
         }
+
+        //Updating Translator object fields
         Translator translatorUpdated = translatorRepository.findById(Integer.parseInt( translatorId)).orElse(null);
         translatorUpdated.setFirstName(editedTranslator.getFirstName());
         translatorUpdated.setLastName(editedTranslator.getLastName());
@@ -197,10 +199,22 @@ public class TranslatorController {
         translatorUpdated.setLanguage(editedTranslator.getLanguage());
         translatorUpdated.setBio(editedTranslator.getBio());
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        translatorUpdated.setImage(fileName);
+
+        //This is where Translator image is being checked to see if it needs to be updated
+        //There is default value for all Translator images, so if there is no new value
+        //being passed, we do not need to update Translator image field
+        if(fileName != null && !fileName.isEmpty() && !fileName.isBlank()){
+            translatorUpdated.setImage(fileName); //setting image value to the database
+
+            //we are setting the file directory address
+            String uploadDir = "../hub/src/main/resources/static/translator-photos/" + translatorUpdated.getId();
+
+            //we are copying and uploading the image to the project directory
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }
+
         translatorRepository.save(translatorUpdated);
-        String uploadDir = "../hub/src/main/resources/static/translator-photos/" + translatorUpdated.getId();
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
 
 //        return "redirect:/translator/detail?translatorId=" + translatorUpdated.getId();
         return "redirect:";

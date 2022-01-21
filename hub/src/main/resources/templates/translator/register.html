@@ -6,8 +6,9 @@
 <div th:replace="fragments :: messages"></div>
 <main class="container">
     <h1 th:text="${title}">Translator</h1>
-    <form method="post" enctype="multipart/form-data">
-        <div class="form-group">
+    <form action="#" th:action="@{/translator/register}" method="post" th:object="${translatorRegFormDTO}" enctype="multipart/form-data">
+
+    <div class="form-group">
             <label>First Name
                 <input class="form-control" th:field="${translatorRegFormDTO.firstName}"/>
             </label>
