@@ -11,4 +11,5 @@ public class LanguageController {
     @Autowired
     private LangRepository langRepository;
 
+
 }

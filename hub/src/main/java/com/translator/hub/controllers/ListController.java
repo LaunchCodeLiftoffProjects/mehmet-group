@@ -2,11 +2,13 @@ package com.translator.hub.controllers;
 
 import com.translator.hub.data.LangRepository;
 import com.translator.hub.data.TranslatorRepository;
+import com.translator.hub.models.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 
@@ -20,24 +22,40 @@ public class ListController {
     private TranslatorRepository translatorRepository;
 
 
-/*    @Autowired
-    private LangRepository languageRepository;*/
+    //uncommenting 24-33 beause it might be needed to list the translators
+    // by language AGB 1/23
+    @Autowired
+    private LangRepository languageRepository;
 
+    static HashMap<String, String> columnChoices = new HashMap<>();
 
-
-   /* static HashMap<String, String> columnChoices = new HashMap<>();
-
-    public ListController () {
+    public ListController() {
         columnChoices.put("all", "All");
         columnChoices.put("translator", "Translator");
         columnChoices.put("language", "Language");
-    }*/
+    }
 
-    @GetMapping(value="/viewtranslators")
+    @GetMapping(value = "/viewtranslators")
     public String findAllTranslators(Model model) {
         model.addAttribute("translators", translatorRepository.findAll());
         return "translator/viewtranslators";
     }
 
+
+    //attempting a mapping that will allow the user to clock on a language and pull back
+    //all translators who specialize in that language
+    @RequestMapping(value = "languages")
+    public String listJobsByLanguages(Model model, @RequestParam String column, @RequestParam String value) {
+
+
+
+        Iterable<Language> languages;
+return "viewtranslators";//probably not correct. I think I need to create a new html page
+    }
+
 }
+
+
+
+
 
