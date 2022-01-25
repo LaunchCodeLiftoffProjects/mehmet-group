@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 
 
 @Controller
@@ -34,14 +35,23 @@ public class SplitController {
 
         languages = language1.replaceAll(",\\s|\\s", ",").split(",");
 
+        System.out.println(Arrays.toString(languages));
+
         for (String language: languages) {
 
-            Language existingLanguage = langRepository.findByName(language);
+            System.out.println(language.toLowerCase());
 
-            if (existingLanguage == null) {
-              Language newLanguage = new Language(language);
-              langRepository.save(newLanguage);
+            if (!language.toLowerCase().equals("english")) {
+                Language existingLanguage = langRepository.findByName(language);
+
+                if (existingLanguage == null) {
+                    language = Character.toUpperCase(language.charAt(0)) + language.substring(1);
+                    Language newLanguage = new Language(language);
+                    langRepository.save(newLanguage);
+                }
             }
+
+
         }
 
         Iterable<Language> allLanguages = langRepository.findAll();

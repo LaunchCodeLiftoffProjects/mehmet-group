@@ -1,7 +1,9 @@
 package com.translator.hub.controllers;
 
 
+import com.translator.hub.data.LangRepository;
 import com.translator.hub.data.TranslatorRepository;
+import com.translator.hub.models.Language;
 import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +20,13 @@ public class SearchController {
     @Autowired
     private TranslatorRepository translatorRepository;
 
+    @Autowired
+    private LangRepository langRepository;
 
     @RequestMapping("")
     public String search(Model model) {
-//        model.addAttribute("search", "search");
+        Iterable<Language> allLanguages = langRepository.findAll();
+        model.addAttribute("languages", allLanguages);
         return "search";
     }
 
@@ -45,9 +50,12 @@ public class SearchController {
     }*/
 
     @PostMapping("results")
-    public String displaySearchResults(Model model, @RequestParam String language1){
+    public String displaySearchResults(Model model, @RequestParam String language){
         Iterable<Translator> translators;
-        translators = translatorRepository.findByLanguageContainsIgnoreCase(language1);
+        translators = translatorRepository.findByLanguageContainsIgnoreCase(language);
+
+        Iterable<Language> allLanguages = langRepository.findAll();
+        model.addAttribute("languages", allLanguages);
 
 
 

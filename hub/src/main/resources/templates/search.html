@@ -25,15 +25,16 @@
 <h5>Or foreign language to English translations.</h5>
 <br>
 <br>
-<h5>Please enter the foreign language</h5>
+<h5>Please select a foreign language</h5>
 <h5>To be used for this translation:</h5>
 
 <form th:action="@{/search/results}" method = "post">
-    <p>
-        <label for="language1">Language:</label>
-        <input type="text" id="language1" name="language1" required>
-    </p>
-        <input type="submit" value="Show Translators">
+    <select required name="language" id="language">
+        <option disabled selected value> -- select a language -- </option>
+        <option th:each="language : ${languages}"
+                th:text="${language.name}"></option>
+    </select>
+    <input type="submit" value="Show Translators">
 </form>
 
 <table class="table table-striped">

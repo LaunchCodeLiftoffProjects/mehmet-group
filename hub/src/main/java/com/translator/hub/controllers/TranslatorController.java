@@ -249,14 +249,19 @@ public class TranslatorController {
 
         languages = languageInput.replaceAll(",\\s|\\s", ",").split(",");
 
-        for (String language : languages) {
+        for (String language: languages) {
 
-            Language existingLanguage = langRepository.findByName(language);
+            if (!language.toLowerCase().equals("english")) {
+                Language existingLanguage = langRepository.findByName(language);
 
-            if (existingLanguage == null) {
-                Language newLanguage = new Language(language);
-                langRepository.save(newLanguage);
+                if (existingLanguage == null) {
+                    language = Character.toUpperCase(language.charAt(0)) + language.substring(1);
+                    Language newLanguage = new Language(language);
+                    langRepository.save(newLanguage);
+                }
             }
+
+
         }
     }
 }
