@@ -31,7 +31,8 @@
             </td>
             <td th:text="${translator.firstName}"> First Name </td>
         <td th:text="${translator.lastName}"> Last Name </td>
-        <td th:text="${translator.language}"> Languages </td>
+        <td><a th:text="${translator.language}" th:href="@{/list/translators(column=translator, value=${translator.language})}"></a>
+        </td>
 
         <td th:text="${translator.address}"> Address </td>
         <td th:text="${translator.bio}"> Bio Info </td>

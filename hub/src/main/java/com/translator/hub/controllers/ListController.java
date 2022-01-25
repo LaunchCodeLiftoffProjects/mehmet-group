@@ -52,10 +52,13 @@ public class ListController {
 if (column.toLowerCase(). equals("all")) {
     languages = languageRepository.findAll();
     model.addAttribute("languages", "All Languages");
+}else{
+    languages = Language.findTranslatorByLanguage(value, languageRepository.findAll());
+    model.addAttribute("title", "Translators that speak " + columnChoices.get(column) + ":"  + value);
+
 }
-else{
-    languages = Language.find
-}
+
+model.addAttribute("Languages", languages);
 
 return "viewtranslators";//probably not correct. I think I need to create a new html page
     }
