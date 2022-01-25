@@ -42,14 +42,21 @@ public class ListController {
     }
 
 
-    //attempting a mapping that will allow the user to clock on a language and pull back
-    //all translators who specialize in that language
+    //attempting a mapping that will allow the user to click on a language and pull back
+    //all translators who specialize in that language AGB 1/23
     @RequestMapping(value = "languages")
+    //check variable names here
     public String listJobsByLanguages(Model model, @RequestParam String column, @RequestParam String value) {
 
-
-
         Iterable<Language> languages;
+if (column.toLowerCase(). equals("all")) {
+    languages = languageRepository.findAll();
+    model.addAttribute("languages", "All Languages");
+}
+else{
+    languages = Language.find
+}
+
 return "viewtranslators";//probably not correct. I think I need to create a new html page
     }
 

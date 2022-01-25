@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 
 
 @Entity
@@ -34,6 +35,8 @@ public class Translator {
         }
         return "/translator-photos/" + id + "/" + image;
     }
+
+
 
     public Translator() {
     }
