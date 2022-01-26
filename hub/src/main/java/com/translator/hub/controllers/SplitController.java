@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+
 import java.util.Arrays;
+
+import static org.thymeleaf.util.StringUtils.capitalize;
 
 
 @Controller
@@ -37,7 +41,7 @@ public class SplitController {
 
         System.out.println(Arrays.toString(languages));
 
-        for (String language: languages) {
+        for (String language : languages) {
 
             System.out.println(language.toLowerCase());
 
@@ -45,7 +49,8 @@ public class SplitController {
                 Language existingLanguage = langRepository.findByName(language);
 
                 if (existingLanguage == null) {
-                    language = Character.toUpperCase(language.charAt(0)) + language.substring(1);
+                    //language = Character.toUpperCase(language.charAt(0)) + language.substring(1);
+                    language = capitalize(language);
                     Language newLanguage = new Language(language);
                     langRepository.save(newLanguage);
                 }

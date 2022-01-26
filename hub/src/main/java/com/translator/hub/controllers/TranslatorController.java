@@ -21,6 +21,10 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Optional;
 
+import static org.thymeleaf.util.StringUtils.capitalize;
+import static org.thymeleaf.util.StringUtils.capitalizeWords;
+
+
 @Controller
 @RequestMapping("translator")
 public class TranslatorController {
@@ -97,8 +101,8 @@ public class TranslatorController {
         }
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        Translator newTranslator = new Translator(translatorRegFormDTO.getFirstName(), translatorRegFormDTO.getLastName(), translatorRegFormDTO.getEmail(),
-                translatorRegFormDTO.getLanguage(), translatorRegFormDTO.getAddress(), translatorRegFormDTO.getBio(), translatorRegFormDTO.getPassword());
+        Translator newTranslator = new Translator(capitalize(translatorRegFormDTO.getFirstName()), capitalize(translatorRegFormDTO.getLastName()), translatorRegFormDTO.getEmail(),
+                capitalizeWords(translatorRegFormDTO.getLanguage()), capitalize(translatorRegFormDTO.getAddress()), capitalize(translatorRegFormDTO.getBio()), translatorRegFormDTO.getPassword());
         newTranslator.setImage(fileName);
 
         //adds languages from the register form to langRepository if they don't already exist
@@ -202,12 +206,12 @@ public class TranslatorController {
 
         //Updating Translator object fields
         Translator translatorUpdated = translatorRepository.findById(Integer.parseInt(translatorId)).orElse(null);
-        translatorUpdated.setFirstName(editedTranslator.getFirstName());
-        translatorUpdated.setLastName(editedTranslator.getLastName());
+        translatorUpdated.setFirstName(capitalize(editedTranslator.getFirstName()));
+        translatorUpdated.setLastName(capitalize(editedTranslator.getLastName()));
         translatorUpdated.setEmail(editedTranslator.getEmail());
-        translatorUpdated.setAddress(editedTranslator.getAddress());
-        translatorUpdated.setLanguage(editedTranslator.getLanguage());
-        translatorUpdated.setBio(editedTranslator.getBio());
+        translatorUpdated.setAddress(capitalize(editedTranslator.getAddress()));
+        translatorUpdated.setLanguage(capitalizeWords(editedTranslator.getLanguage()));
+        translatorUpdated.setBio(capitalize(editedTranslator.getBio()));
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
         //This is where Translator image is being checked to see if it needs to be updated
@@ -249,13 +253,13 @@ public class TranslatorController {
 
         languages = languageInput.replaceAll(",\\s|\\s", ",").split(",");
 
-        for (String language: languages) {
+        for (String language : languages) {
 
             if (!language.toLowerCase().equals("english")) {
                 Language existingLanguage = langRepository.findByName(language);
 
                 if (existingLanguage == null) {
-                    language = Character.toUpperCase(language.charAt(0)) + language.substring(1);
+                    language = capitalize(language);
                     Language newLanguage = new Language(language);
                     langRepository.save(newLanguage);
                 }
@@ -265,3 +269,4 @@ public class TranslatorController {
         }
     }
 }
+
