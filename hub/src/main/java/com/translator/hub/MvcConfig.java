@@ -1,5 +1,6 @@
 package com.translator.hub;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -26,6 +27,9 @@ public class MvcConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:/" + uploadPath + "/");
     }
+
+
+
 
 
 }

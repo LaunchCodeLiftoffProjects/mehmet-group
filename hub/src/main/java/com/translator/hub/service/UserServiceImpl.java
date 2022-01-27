@@ -1,45 +1,43 @@
 package com.translator.hub.service;
 
+import com.translator.hub.data.RoleRepository;
 import com.translator.hub.data.UserRepository;
-import com.translator.hub.models.DTO.UserForm;
+import com.translator.hub.models.Role;
 import com.translator.hub.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.HashSet;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private RoleRepository roleRepository;
 
-    @Transactional
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
-    public User save(UserForm userForm) throws EmailExistsException {
-
-        User existingUser = userRepository.findByEmail(userForm.getEmail());
-        if (existingUser != null)
-            throw new EmailExistsException("The email address "
-                    + userForm.getEmail() + " already exists in the system");
-
-        User newUser = new User(
-                userForm.getEmail(),
-                userForm.getFirstName(),
-                userForm.getLastName(),
-                passwordEncoder.encode(userForm.getPassword()));
-        userRepository.save(newUser);
-
-        return newUser;
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public void saveUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1);
+        Role userRole = roleRepository.findByRole("USER");
+        Role adminRole = roleRepository.findByRole("ADMIN");
+        Role translatorRole = roleRepository.findByRole("TRANSLATOR");
+
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        userRepository.save(user);
     }
 
 }

@@ -1,49 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
 <body>
-
 <div th:replace="fragments :: page-header"></div>
-
 <div th:replace="fragments :: messages"></div>
-
-
-
-<main class="container-fluid">
-
-    <div class="row justify-content-center">
-
-
-        <form method="post" th:action="@{/login}" class="col-8">
-            <div class="form-group">
-                <h1>Log into your account</h1>
-            </div>
-            <br>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" class="form-control" name="email"/>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input id="password" class="form-control" type="password" name="password" />
-            </div>
-
-            <div class="form-group">
-                <input id="remember-me" type="checkbox" name="remember-me" />
-                <label for="remember-me">Remember Me</label>
-            </div>
-            <br>
-            <button class="btn btn-primary" type="submit"><i class="fas fa-sign-in-alt"></i> Log In</button>
-            <br>
-            <p>Don't have an account? <a href="/register">Register</a></p>
-        </form>
-
-
+<div class="container">
+    <div class="alert alert-danger" role="alert" th:if="${param.error}">
+        The email or password is incorrect!
     </div>
+    <form th:action="@{/login}" th:object="${userForm}" method="post" >
+        <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+        <label th:for="inputEmail" class="sr-only">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+        <label th:for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
 
-
-</main>
-</body>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="remember-me" /> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" formnovalidate type="submit">Sign in</button>
+        <div class="margin-top20 text-center"> Don't have an account? <a th:href="@{/register}">Create an account</a></div>
+    </form>
+</div>
 <div th:replace="fragments :: footer"></div>
 </body>
 </html>

@@ -1,80 +1,69 @@
 package com.translator.hub.models;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import java.util.Set;
+
+import javax.persistence.*;
 
 @Entity
-public class User extends AbstractEntity {
+@Table(name = "user")
+public class User {
 
-    @NotBlank
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(name = "email")
     private String email;
 
-    @NotBlank
+    @Column(name = "firstname")
     private String firstName;
 
-    @NotBlank
+    @Column(name = "lastname")
     private String lastName;
 
-
-    @NotBlank
+    @Column(name = "password")
     private String password;
 
-    @NotNull
-    private Boolean enabled = true;
+    private String passwordConfirm;
 
-    public User() {}
+    @Column(name = "active")
+    private int active;
 
-    public User(@NotBlank String email, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String password) {
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
+    private Set<Role> roles;
 
-        if (email == null || email.length() == 0 || !isValidEmail(email))
-            throw new IllegalArgumentException("Email may not be blank");
-
-        if (firstName == null || firstName.length() == 0)
-            throw new IllegalArgumentException("firstName may not be blank");
-
-        if (lastName == null || lastName.length() == 0)
-            throw new IllegalArgumentException("lastName may not be blank");
-
-        if (password == null || password.length() == 0)
-            throw new IllegalArgumentException("Password may not be blank");
-
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
+    public int getId() {
+        return id;
     }
 
-    public List<String> getRoles() {
-        ArrayList<String> roles = new ArrayList<>();
-        roles.add("ROLE_USER");
-        return roles;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String firstname) {
+        this.firstName = firstname;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
     }
 
     public String getPassword() {
@@ -85,46 +74,28 @@ public class User extends AbstractEntity {
         this.password = password;
     }
 
-    public Boolean isEnabled() {
-        return enabled;
+    public int getActive() {
+        return active;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setActive(int active) {
+        this.active = active;
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final User user = (User) obj;
-        return email.equals(user.email);
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getEmail());
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+    @Transient
+    public String getPasswordConfirm() {
+        return passwordConfirm;
     }
 
-    private static boolean isValidEmail(String email) {
-        Pattern pattern = Pattern.compile("\\S+@\\S+");
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 }

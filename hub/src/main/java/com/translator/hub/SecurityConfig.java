@@ -1,18 +1,20 @@
 package com.translator.hub;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.sql.DataSource;
+
 
 
 @Configuration
@@ -20,50 +22,48 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    DataSource dataSource;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private DataSource dataSource;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .regexMatchers("/", "/index", "/register", "/translator/login", "/translator/register").permitAll()
-                .regexMatchers("/webjars/.*").permitAll()
-                .regexMatchers("/css/.*").permitAll()
-                .regexMatchers("/login?[^/]*").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
-                .and()
-                .rememberMe();
-    }
+    private final String USERS_QUERY = "select email, password, active from user where email=?";
+    private final String ROLES_QUERY = "select u.email, r.role from user u inner join user_role ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.role_id) where u.email=?";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider());
-        auth.userDetailsService(userDetailsService);
+        auth.jdbcAuthentication()
+                .usersByUsernameQuery(USERS_QUERY)
+                .authoritiesByUsernameQuery(ROLES_QUERY)
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception{
+        http.authorizeRequests()
+                .antMatchers("/translator/viewtranslators", "/translator/search", "/translator/**").hasAnyAuthority( "TRANSLATOR", "ADMIN")
+                .antMatchers("/","/translator/viewtranslators", "/translator/search").hasAnyAuthority("USER")
+                .antMatchers("/", "/register", "/login", "/translator/login", "/translator/register").permitAll()
+                .and().formLogin().loginPage("/login").failureUrl("/login?error=true")
+                .defaultSuccessUrl("/")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+                .and().rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(60*60)
+                .and().exceptionHandling().accessDeniedPage("/access_denied");
+    }
+
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(dataSource);
+
+        return db;
+    }
 }
