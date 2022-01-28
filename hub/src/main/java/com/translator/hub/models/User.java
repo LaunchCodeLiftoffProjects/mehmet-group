@@ -18,31 +18,16 @@ public class User {
     private int id;
 
     @Column(name = "email")
-    @NotNull
-    @NotBlank
-    @Email(message = "Invalid email. Enter valid email.")
     private String email;
 
     @Column(name = "firstname")
-    @NotNull
-    @NotBlank
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
-    private String firstName;
+    private String firstname;
 
     @Column(name = "lastname")
-    @NotNull
-    @NotBlank
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
-    private String lastName;
+    private String lastname;
 
     @Column(name = "password")
-    @NotNull
-    @NotBlank
-    @Size(min = 5, max = 20, message = "Invalid password. Must be between 5 and 30 characters.")
     private String password;
-
-    @NotNull(message="Passwords do not match")
-    private String passwordConfirm;
 
     @Column(name = "active")
     private int active;
@@ -67,20 +52,20 @@ public class User {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstname) {
-        this.firstName = firstname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastname) {
-        this.lastName = lastname;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getPassword() {
@@ -105,14 +90,5 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    @Transient
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
     }
 }

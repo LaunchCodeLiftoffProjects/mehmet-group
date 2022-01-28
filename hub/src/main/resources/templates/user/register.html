@@ -29,31 +29,29 @@
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label th:for="firstName">First Name</label>
+                <label th:for="name">First Name</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                        <input type="text" th:field="*{firstName}" class="form-control" id="firstname"
+                        <input type="text" th:field="*{firstname}" class="form-control" id="firstname"
                                placeholder="First Name" required autofocus>
                     </div>
-                    <p class="error" th:errors="${user.firstName}"></p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label th:for="lastName">Last Name</label>
+                <label th:for="name">Last Name</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                        <input type="text" th:field="*{lastName}" class="form-control" id="lastname"
+                        <input type="text" th:field="*{lastname}" class="form-control" id="lastname"
                                placeholder="Last name" required autofocus>
                     </div>
-                    <p class="error" th:errors="${user.lastName}"></p>
                 </div>
             </div>
         </div>
@@ -66,9 +64,8 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
                         <input type="text" th:field="*{email}" class="form-control" id="email"
-                               placeholder="example@email.com" required autofocus>
+                               placeholder="username@jackrutorial.com" required autofocus>
                     </div>
-                    <p class="error" th:errors="${user.email}"></p>
                 </div>
             </div>
             <div class="col-md-3">
@@ -89,7 +86,6 @@
                         <input type="password" th:field="*{password}" class="form-control" id="password"
                                placeholder="Password" required>
                     </div>
-                    <p class="error" th:errors="${user.password}"></p>
                 </div>
             </div>
             <div class="col-md-3">
@@ -99,15 +95,15 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" formnovalidate class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
             </div>
         </div>
+        <div class="margin-top20 text-center"> Already have an account? <a th:href="@{/login}">Log in</a></div>
     </form>
 </div>
-<div th:replace="fragments :: footer"></div>
 </body>
+<div th:replace="fragments :: footer"></div>
 </html>
