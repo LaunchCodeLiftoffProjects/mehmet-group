@@ -4,6 +4,10 @@ package com.translator.hub.models;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -14,17 +18,30 @@ public class User {
     private int id;
 
     @Column(name = "email")
+    @NotNull
+    @NotBlank
+    @Email(message = "Invalid email. Enter valid email.")
     private String email;
 
     @Column(name = "firstname")
+    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String firstName;
 
     @Column(name = "lastname")
+    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String lastName;
 
     @Column(name = "password")
+    @NotNull
+    @NotBlank
+    @Size(min = 5, max = 20, message = "Invalid password. Must be between 5 and 30 characters.")
     private String password;
 
+    @NotNull(message="Passwords do not match")
     private String passwordConfirm;
 
     @Column(name = "active")

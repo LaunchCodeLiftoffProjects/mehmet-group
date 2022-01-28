@@ -175,7 +175,7 @@ public class TranslatorController {
     }
 
     //lives at localhost:8080/translator/editTranslator?translatorId=3
-    @GetMapping("/editTranslator")
+    @GetMapping("/edit")
     public String showEditTranslatorForm(@RequestParam(required = false) Integer translatorId, Model model) {
         Optional<Translator> result = translatorRepository.findById(translatorId);
         if (result.isEmpty()) {
@@ -196,7 +196,7 @@ public class TranslatorController {
         return "translator/editTranslatorForm";
     }
 
-    @PostMapping("/editTranslator")
+    @PostMapping("/edit")
     public String processTranslatorEditForm(@ModelAttribute @Valid TranslatorEditFormDTO editedTranslator, String translatorId, Errors errors, HttpServletRequest request, @RequestParam("image") MultipartFile multipartFile,
                                             Model model) throws IOException {
         if (errors.hasErrors()) {
