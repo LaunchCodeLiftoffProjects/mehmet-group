@@ -22,7 +22,7 @@
                        th:href="'/translator/detail?translatorId='+ ${translator.id}"></a>
                 </td>
                 <td>
-                    <form class="column1" th:action="@{/translator/editTranslator}" method="get">
+                    <form class="column1" th:action="@{/translator/edit}" method="get">
                         <input type="hidden" name="translatorId" th:value="${translator.id}"/>
                         <input type="submit" value="Edit" class="btn btn-info"/>
                     </form>

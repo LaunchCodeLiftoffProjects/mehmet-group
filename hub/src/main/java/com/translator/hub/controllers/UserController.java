@@ -2,7 +2,7 @@ package com.translator.hub.controllers;
 
 import javax.validation.Valid;
 
-import com.translator.hub.models.DTO.UserValidator;
+//import com.translator.hub.models.DTO.UserValidator;
 import com.translator.hub.models.User;
 import com.translator.hub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserValidator userValidator;
+//    @Autowired
+//    private UserValidator userValidator;
 
     @RequestMapping(value= {"/login"}, method=RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView model = new ModelAndView();
 
         model.setViewName("user/login");
+
         return model;
     }
 
