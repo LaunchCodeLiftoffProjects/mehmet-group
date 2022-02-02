@@ -28,9 +28,9 @@
 <h5>Please select a foreign language</h5>
 <h5>To be used for this translation:</h5>
 
-<form th:action="@{/search/results}" method = "post">
+<form th:action="@{/search/results}" method="post">
     <select required name="language" id="language">
-        <option disabled selected value> -- select a language -- </option>
+        <option disabled selected value> -- select a language --</option>
         <option th:each="language : ${languages}"
                 th:text="${language.name}"></option>
     </select>
@@ -39,20 +39,17 @@
 
 <table class="table table-striped">
     <tbody>
-        <tr th:each="translator : ${translators}">
-            <td><a th:href="'/translator/detail?translatorId=' + ${translator.id}" th:text="${translator.id}"></a></td>
-            <td th:text="${translator.firstName}"></td>
-            <td th:text="${translator.lastName}"></td>
-            <td th:text="${translator.language}"></td>
-            <td th:text="${translator.address}"></td>
-            <td th:text="${translator.bio}"></td>
-
-        </tr>
+    <tr th:each="translator : ${translators}">
+        <td><a th:href="'/admin/translator/detail?translatorId=' + ${translator.id}" th:text="${translator.id}"></a>
+        </td>
+        <td th:text="${translator.firstName}"></td>
+        <td th:text="${translator.lastName}"></td>
+        <td th:text="${translator.language}"></td>
+        <td th:text="${translator.address}"></td>
+        <td th:text="${translator.bio}"></td>
+    </tr>
     </tbody>
 </table>
-
-
-
 <div th:replace="fragments :: footer"></div>
 </body>
 </html>

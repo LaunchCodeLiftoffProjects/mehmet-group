@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.HashMap;
 
 
-
-
 @Controller
 public class ListController {
 
@@ -38,7 +36,7 @@ public class ListController {
     @GetMapping(value = "/viewtranslators")
     public String findAllTranslators(Model model) {
         model.addAttribute("translators", translatorRepository.findAll());
-        return "translator/viewtranslators";
+        return "admin/viewtranslators";
     }
 
 
@@ -49,18 +47,18 @@ public class ListController {
     public String listJobsByLanguages(Model model, @RequestParam String column, @RequestParam String value) {
 
         Iterable<Language> languages;
-if (column.toLowerCase(). equals("all")) {
-    languages = languageRepository.findAll();
-    model.addAttribute("languages", "All Languages");
-}else{
-    languages = Language.findTranslatorByLanguage(value, languageRepository.findAll());
-    model.addAttribute("title", "Translators that speak " + columnChoices.get(column) + ":"  + value);
+        if (column.toLowerCase().equals("all")) {
+            languages = languageRepository.findAll();
+            model.addAttribute("languages", "All Languages");
+        } else {
+            languages = Language.findTranslatorByLanguage(value, languageRepository.findAll());
+            model.addAttribute("title", "Translators that speak " + columnChoices.get(column) + ":" + value);
 
-}
+        }
 
-model.addAttribute("Languages", languages);
+        model.addAttribute("Languages", languages);
 
-return "viewtranslators";//probably not correct. I think I need to create a new html page
+        return "viewtranslators";//probably not correct. I think I need to create a new html page
     }
 
 }

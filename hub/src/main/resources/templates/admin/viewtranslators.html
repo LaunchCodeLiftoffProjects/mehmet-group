@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-
 <body class="container  body-content">
-
 <nav th:replace="fragments :: page-header"></nav>
 <div th:replace="fragments :: messages"></div>
-
 <div>
     <table class="table table-striped">
         <thead>
@@ -17,37 +14,23 @@
             <th>Languages</th>
             <th>Address</th>
             <th>Bio Info</th>
-
-
         </tr>
         </thead>
         <tbody>
         <tr th:each="translator : ${translators}">
-
-
-
             <td><a th:text="${translator.id}"
-                   th:href="'/translator/detail?translatorId='+ ${translator.id}"></a>
+                   th:href="'/admin/detail?translatorId='+ ${translator.id}"></a>
             </td>
-            <td th:text="${translator.firstName}"> First Name </td>
-        <td th:text="${translator.lastName}"> Last Name </td>
-        <td><a th:text="${translator.language}" th:href="@{/list/translators(column=translator, value=${translator.language})}"></a>
-        </td>
-
-        <td th:text="${translator.address}"> Address </td>
-        <td th:text="${translator.bio}"> Bio Info </td>
-
+            <td th:text="${translator.firstName}"> First Name</td>
+            <td th:text="${translator.lastName}"> Last Name</td>
+            <td><a th:text="${translator.language}"
+                   th:href="@{/list/translators(column=translator, value=${translator.language})}"></a>
+            </td>
+            <td th:text="${translator.address}"> Address</td>
+            <td th:text="${translator.bio}"> Bio Info</td>
         </tr>
         </tbody>
-
     </table>
-
 </div>
 </body>
 </html>
-
-<!--<td>-->
-<!--    <li th:each="employer : ${employers}">-->
-<!--        <a th:href="@{/list/jobs(column=employer,value=${employer.name})}" th:text="${employer.name}"></a>-->
-<!--    </li>-->
-<!--</td>-->
