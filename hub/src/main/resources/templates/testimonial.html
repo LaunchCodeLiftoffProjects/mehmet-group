@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+<body>
+<div th:replace="fragments :: page-header"></div>
+<div th:replace="fragments :: messages"></div>
+
+
+
+            <div class="container px-5 my-5 px-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
+                    <h2 class="fw-bolder">Get in touch</h2>
+                    <p class="lead mb-0">We'd love to hear from you</p>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
+                        <form id="contactForm" th:action="@{/testimonial}" th:object="${testimonial}" method="post">
+                            <!-- First name input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="firstname" name="firstname" type="text" placeholder="Enter your first name..."/>
+                                <label for="firstname">First name</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A first name is required.</div>
+                            </div>
+                            <!-- Last name input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="lastname" name="lastname" type="text" placeholder="Enter your last name..."/>
+                                <label for="lastname">Last Name</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A last name is required.</div>
+                            </div>
+                            <!-- Location input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="location" name="location" type="text" placeholder="Enter your location..."/>
+                                <label for="location">Location</label>
+                                <div class="invalid-feedback" data-sb-feedback="location:required">A location is required.</div>
+                            </div>
+                            <!-- Message input-->
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="message" name="message" type="text" placeholder="Enter your message here..." style="height: 10rem"></textarea>
+                                <label for="message">Message</label>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                            </div>
+
+                            <!-- Submit error message-->
+                            <!---->
+                            <!-- This is what your users will see when there is-->
+                            <!-- an error submitting the form-->
+                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

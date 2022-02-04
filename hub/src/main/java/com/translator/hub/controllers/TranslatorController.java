@@ -95,7 +95,7 @@ public class TranslatorController {
         }
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         Translator newTranslator = new Translator(capitalize(translatorRegFormDTO.getFirstName()), capitalize(translatorRegFormDTO.getLastName()), translatorRegFormDTO.getEmail(),
-                capitalizeWords(translatorRegFormDTO.getLanguage()), capitalize(translatorRegFormDTO.getAddress()), capitalize(translatorRegFormDTO.getBio()), translatorRegFormDTO.getPassword());
+                capitalizeWords(translatorRegFormDTO.getLanguage()).replaceAll(",\\s|\\s", ","), capitalize(translatorRegFormDTO.getAddress()), capitalize(translatorRegFormDTO.getBio()), translatorRegFormDTO.getPassword());
         newTranslator.setImage(fileName); //setting image value to the database
         Translator savedTranslator = translatorRepository.save(newTranslator);
         //we are setting the file directory address

@@ -37,13 +37,21 @@
     <input type="submit" value="Show Translators">
 </form>
 
+<h5>Or</h5>
+<h5>Search by location:</h5>
+
+<form th:action="@{/search/results}" method = "post">
+    <input type="text" id="address" name="address">
+    <input type="submit" value="Show Translators">
+</form>
+
 <table class="table table-striped">
     <tbody>
     <tr th:each="translator : ${translators}">
-        <td><a th:href="'/admin/translator/detail?translatorId=' + ${translator.id}" th:text="${translator.id}"></a>
+        <td><a th:href="'/admin/detail?translatorId=' + ${translator.id}" th:text="${translator.id}"></a>
         </td>
-        <td th:text="${translator.firstName}"></td>
-        <td th:text="${translator.lastName}"></td>
+        <td th:text="${translator.firstName} + ' ' + ${translator.lastName}"></td>
+<!--        <td th:text="${translator.lastName}"></td>-->
         <td th:text="${translator.language}"></td>
         <td th:text="${translator.address}"></td>
         <td th:text="${translator.bio}"></td>

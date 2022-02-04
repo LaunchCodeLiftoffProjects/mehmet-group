@@ -22,6 +22,8 @@ public interface TranslatorRepository extends CrudRepository <Translator, Intege
 
     List<Translator> findByLanguageContainsIgnoreCase(String language);
 
+    List<Translator> findByAddressIgnoreCase(String address);
+
 
 
 
