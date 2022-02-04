@@ -19,10 +19,10 @@
             <tbody>
             <tr th:each="translator:${translators}">
                 <td><a th:text="${translator.firstName}"
-                       th:href="'/admin/detail?translatorId='+ ${translator.id}"></a>
+                       th:href="'/admin/translator/Detail?translatorId='+ ${translator.id}"></a>
                 </td>
                 <td>
-                    <form class="column1" th:action="@{/admin/edit}" method="get">
+                    <form class="column1" th:action="@{/admin/updateTranslator}" method="get">
                         <input type="hidden" name="translatorId" th:value="${translator.id}"/>
                         <input type="submit" value="Edit" class="btn btn-info"/>
                     </form>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments::head"></head>
+<body class="container-fluid">
+<div th:replace="fragments :: page-header"></div>
+<div th:replace="fragments :: messages"></div>
+<main class="container">
+    <div class="row d-flex justify-content-center" th:replace="fragments :: header"></div>
+
+    <form th:action="@{/admin/updateTranslator}" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <div class="p-t-10">
+            <input type="hidden" name="translatorId" th:value="${translatorId}"/>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label th:for="name">First Name</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input class="form-control" type="text" th:field="${translatorUpdate.firstName}"
+                               placeholder="First Name" required autofocus/>
+                    </div>
+                    <p class="error" th:errors="${translatorUpdate.firstName}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label th:for="lastname">Last Name</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="text" th:field="${translatorUpdate.lastName}" class="form-control" id="lastname"
+                               placeholder="Last name" required autofocus>
+                    </div>
+                    <p class="error" th:errors="${translatorUpdate.lastName}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">Email</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <input type="text" th:field="${translatorUpdate.email}" class="form-control" id="email" required
+                               autofocus>
+                    </div>
+                </div>
+            </div>
+            <p class="error" th:errors="${translatorUpdate.email}"></p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label th:for="language">Languages to Translate</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input class="form-control" type="text" th:field="${translatorUpdate.language}" id="language"
+                               placeholder="First Name" required autofocus/>
+                    </div>
+                    <p class="error" th:errors="${translatorUpdate.language}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label th:for="bio">Biography</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user" ></i></div>
+                        <input class="form-control" type="text" th:field="${translatorUpdate.bio}" id="bio"
+                               placeholder="First Name" required autofocus/>
+                    </div>
+                    <p class="error" th:errors="${translatorUpdate.bio}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label th:for="address">Address</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user" ></i></div>
+                        <input class="form-control" type="text" th:field="${translatorUpdate.address}" id="address"
+                               placeholder="First Name" required autofocus/>
+                    </div>
+                    <p class="error" th:errors="${translatorUpdate.address}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label th:for="address">Upload Photo</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user" ></i></div>
+                        <input class="form-control" type="file" name="image" accept="image/png, image/jpeg"/>
+                    </div>
+                    <p>Upload your photo. Max file size 1 MB</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Update</button>
+            </div>
+        </div>
+    </form>
+</main>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>
