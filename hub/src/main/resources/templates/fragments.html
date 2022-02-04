@@ -45,10 +45,11 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item dropdown" th:if="${#authorization.expression('!isAuthenticated()')}">
+                // true if logged in as Admin - Translator dropdown
+                <li class="nav-item dropdown" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Translators
+                        Admin
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/admin/register">Register</a></li>
@@ -56,7 +57,23 @@
                     </ul>
                 </li>
             </ul>
+
+            <ul class="navbar-nav">
+                // true if logged in as Translator
+                <li class="nav-item dropdown" th:if="${#authorization.expression('hasAuthority(''TRANSLATOR'')')}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Translators
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/translator/register">Register</a></li>
+                        <li><a class="dropdown-item" href="/translator/login">Login</a></li>
+                    </ul>
+                </li>
+            </ul>
+
             <ul class="navbar-nav ml-auto">
+                // checks to see if they are logged in (autheticated)
                 <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
                     <form th:action="@{/logout}" method="post" name="logoutForm"></form>
                     <a class="nav-link" href="#" onclick="document.logoutForm.submit()"><i
