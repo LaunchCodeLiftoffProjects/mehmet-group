@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <title>Sign in</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+<head th:replace="fragments :: head">
+    <title>Sign in</title>-->
 </head>
+<!--<head>-->
+<!--    <title>Sign in</title>-->
+<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+<!--    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">-->
+<!--</head>-->
 <body>
 <div th:replace="fragments :: page-header"></div>
 <div th:replace="fragments :: messages"></div>
-<div class="container">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-8"> // centers and made the login smaller
     <div class="alert alert-danger" role="alert" th:if="${param.error}">
         The email or password is incorrect!
     </div>
@@ -31,6 +35,8 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <div class="margin-top20 text-center"> Don't have an account? <a th:href="@{/register}">Create an account</a></div>
     </form>
+    </div>
+    </div>
 </div>
 <div th:replace="fragments :: footer"></div>
 </body>
