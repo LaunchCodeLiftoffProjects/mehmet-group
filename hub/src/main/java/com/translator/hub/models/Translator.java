@@ -26,6 +26,7 @@ public class Translator {
     private String image;
     private String email;
     private String pwHash;
+    //private int userId;
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Transient

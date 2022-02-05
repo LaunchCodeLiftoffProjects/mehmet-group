@@ -6,7 +6,7 @@
 <div th:replace="fragments :: messages"></div>
 <main class="container">
     <div class="row d-flex justify-content-center" th:replace="fragments :: header"></div>
-    <form action="#" th:action="@{/admin/register}" method="post" th:object="${translatorRegFormDTO}" enctype="multipart/form-data">
+    <form action="#" th:action="@{/translator/register}" method="post" th:object="${translatorRegFormDTO}" enctype="multipart/form-data">
 
     <div class="form-group">
             <label>First Name
