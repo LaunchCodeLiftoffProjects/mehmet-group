@@ -10,6 +10,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LanguageController {
     @Autowired
     private LangRepository langRepository;
-
-
 }
