@@ -4,7 +4,7 @@
 <body>
 <div th:replace="fragments :: page-header"></div>
 <div th:replace="fragments :: messages"></div>
-
+</head>
 <!--<h5>I have a document written in</h5>-->
 
 <!--<form th:action="@{/search/results}" method = "post">
@@ -20,44 +20,54 @@
 
     <input type="submit" value="Show Translators">
 </form>-->
+<div th:replace="fragments :: messages"></div>
+<section class="py-5 border-bottom" id="features">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h2> Search for Translators</h2>
+                <br>
+                <h5>We provide matches for English to foreign language</h5>
+                <h5>Or foreign language to English translations.</h5>
+                <br>
+                <br>
+                <h4>Please select a foreign language</h4>
+                <h4>To be used for this translation:</h4>
 
-<h5>We provide matches for English to foreign language</h5>
-<h5>Or foreign language to English translations.</h5>
-<br>
-<br>
-<h5>Please select a foreign language</h5>
-<h5>To be used for this translation:</h5>
+                <form th:action="@{/search/results}" method="post">
+                    <select required name="language" id="language">
+                        <option disabled selected value> -- select a language --</option>
+                        <option th:each="language : ${languages}"
+                                th:text="${language.name}"></option>
+                    </select>
+                    <input type="submit" value="Show Translators">
+                </form>
 
-<form th:action="@{/search/results}" method="post">
-    <select required name="language" id="language">
-        <option disabled selected value> -- select a language --</option>
-        <option th:each="language : ${languages}"
-                th:text="${language.name}"></option>
-    </select>
-    <input type="submit" value="Show Translators">
-</form>
+                <h5>Or</h5>
+                <h5>Search by location:</h5>
 
-<h5>Or</h5>
-<h5>Search by location:</h5>
+                <form th:action="@{/search/results}" method = "post">
+                    <input type="text" id="address" name="address">
+                    <input type="submit" value="Show Translators">
+                </form>
 
-<form th:action="@{/search/results}" method = "post">
-    <input type="text" id="address" name="address">
-    <input type="submit" value="Show Translators">
-</form>
-
-<table class="table table-striped">
-    <tbody>
-    <tr th:each="translator : ${translators}">
-        <td><a th:href="'/admin/detail?translatorId=' + ${translator.id}" th:text="${translator.id}"></a>
-        </td>
-        <td th:text="${translator.firstName} + ' ' + ${translator.lastName}"></td>
-<!--        <td th:text="${translator.lastName}"></td>-->
-        <td th:text="${translator.language}"></td>
-        <td th:text="${translator.address}"></td>
-        <td th:text="${translator.bio}"></td>
-    </tr>
-    </tbody>
-</table>
-<div th:replace="fragments :: footer"></div>
-</body>
+                <table class="table table-striped">
+                    <tbody>
+                    <tr th:each="translator : ${translators}">
+                        <td><a th:href="'/admin/detail?translatorId=' + ${translator.id}" th:text="${translator.id}"></a>
+                        </td>
+                        <td th:text="${translator.firstName} + ' ' + ${translator.lastName}"></td>
+                <!--        <td th:text="${translator.lastName}"></td>-->
+                        <td th:text="${translator.language}"></td>
+                        <td th:text="${translator.address}"></td>
+                        <td th:text="${translator.bio}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+                <div th:replace="fragments :: footer"></div>
+    </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:fragment="head">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
@@ -73,11 +74,11 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
-<!--                 checks to see if they are logged in (autheticated)-->
+<!--                 checks to see if they are logged in (authenticated)-->
                 <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
                     <form th:action="@{/logout}" method="post" name="logoutForm"></form>
-                    <a class="nav-link" href="#" onclick="document.logoutForm.submit()"><i
-                            class="fas fa-sign-out-alt"></i> Log Out</a>
+                    <a class="nav-link" href="#" onclick="document.logoutForm.submit()">
+                        <i class="fas fa-sign-out-alt"></i> Log Out</a>
                     <h1 th:inline="text">Hello[[${#httpServletRequest.remoteUser}]]!</h1>
                 </li>
                 <li class="nav-item" th:if="${#authorization.expression('!isAuthenticated()')}">
