@@ -66,8 +66,9 @@
                         Translators
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/translator/register">Register</a></li>
-                        <li><a class="dropdown-item" href="/translator/login">Login</a></li>
+                        <li><a class="dropdown-item" th:href="'/translator/edit?translatorEmail='+${#httpServletRequest.remoteUser}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="/translator/register">Register Translator</a></li>
+                        <li><a class="dropdown-item" onclick="document.logoutForm.submit()">Logout</a></li>
                     </ul>
                 </li>
             </ul>

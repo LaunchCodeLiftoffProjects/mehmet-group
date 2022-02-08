@@ -168,13 +168,13 @@ public class TranslatorController {
         return "translator/detail";
     }
 
-    //lives at localhost:8080/translator/editTranslator?translatorId=3
+    //lives at localhost:8080/translator/edit?translatorEmail="xxx@yyy"
     @GetMapping("/edit")
-    public String showEditTranslatorForm(@RequestParam(required = false) Integer translatorId, Model model) {
-        Optional<Translator> result = translatorRepository.findById(translatorId);
+    public String showEditTranslatorForm(@RequestParam(required = false) String translatorEmail, Model model) {
+        Optional<Translator> result = Optional.ofNullable(translatorRepository.findByEmail(translatorEmail));
         if (result.isEmpty()) {
-            model.addAttribute("title", "Translator by Id" + translatorId + "Not found!");
-            return "translator/index";
+            model.addAttribute("title", "Translator by Email " + translatorEmail + " is Not found!");
+            return "translator/error";
         }
         Translator translator = result.get();
         TranslatorEditFormDTO translatorToEdit = new TranslatorEditFormDTO();
@@ -186,7 +186,7 @@ public class TranslatorController {
         translatorToEdit.setBio(translator.getBio());
         model.addAttribute("title", "Edit " + translator.getFirstName() + " detail");
         model.addAttribute("translatorUpdate", translatorToEdit);
-        model.addAttribute("translatorId", translatorId);
+        model.addAttribute("translatorId", translator.getId());
         return "translator/editTranslatorForm";
     }
 
@@ -195,7 +195,7 @@ public class TranslatorController {
                                             Model model) throws IOException {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Edit");
-            return "translator/editTranslatorForm";
+            return "translator/error";
         }
 
         //Updating Translator object fields
@@ -226,8 +226,7 @@ public class TranslatorController {
 
         translatorRepository.save(translatorUpdated);
 
-        // return "redirect:/translator/detail?translatorId=" + translatorUpdated.getId();
-        return "redirect:";
+         return "redirect:/translator/detail?translatorId=" + translatorUpdated.getId();
     }
 
 

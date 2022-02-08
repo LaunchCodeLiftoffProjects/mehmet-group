@@ -54,7 +54,7 @@
                 <table class="table table-striped">
                     <tbody>
                     <tr th:each="translator : ${translators}">
-                        <td><a th:href="'/admin/detail?translatorId=' + ${translator.id}" th:text="${translator.id}"></a>
+                        <td><a th:href="'/admin/translator/Detail?translatorId=' + ${translator.id}" th:text="${translator.id}"></a>
                         </td>
                         <td th:text="${translator.firstName} + ' ' + ${translator.lastName}"></td>
                 <!--        <td th:text="${translator.lastName}"></td>-->

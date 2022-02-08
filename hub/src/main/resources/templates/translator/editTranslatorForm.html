@@ -7,7 +7,7 @@
 <main class="container">
     <div class="row d-flex justify-content-center" th:replace="fragments :: header"></div>
 
-    <form th:action="@{/admin/edit}" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <form th:action="@{/translator/edit}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <div class="p-t-10">
             <input type="hidden" name="translatorId" th:value="${translatorId}"/>
         </div>
