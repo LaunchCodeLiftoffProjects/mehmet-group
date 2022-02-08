@@ -19,7 +19,7 @@
         <tbody>
         <tr th:each="translator : ${translators}">
             <td><a th:text="${translator.id}"
-                   th:href="'/admin/translator/detail?translatorId='+ ${translator.id}"></a>
+                   th:href="'/admin/translator/Detail?translatorId='+ ${translator.id}"></a>
             </td>
             <td th:text="${translator.firstName}"></td>
             <td th:text="${translator.lastName}"></td>
