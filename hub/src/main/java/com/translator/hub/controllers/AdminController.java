@@ -1,8 +1,10 @@
 package com.translator.hub.controllers;
 import com.translator.hub.data.LangRepository;
+import com.translator.hub.data.TestimonialRepository;
 import com.translator.hub.data.TranslatorRepository;
 import com.translator.hub.models.DTO.TranslatorEditFormDTO;
 import com.translator.hub.models.Language;
+import com.translator.hub.models.Testimonial;
 import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,9 @@ public class AdminController {
     @Autowired
     private LangRepository langRepository;
 
+    @Autowired
+    private TestimonialRepository testimonialRepository;
+
     //localhost:8080/admin/manageTranslators
     //localhost:8080/admin/updateTranslator?translatorId=3
     //lives at localhost:8080/admin/translatorDetail?translatorId=3
@@ -43,7 +48,21 @@ public class AdminController {
         return "admin/manageTranslators";
     }
 
+    //respond for localhost:8080/admin/manageTestimonials
+    @GetMapping("manageTestimonials")
+    public String displayTestimonials(Model model) {
+        model.addAttribute("title", "All Testimonials");
+        model.addAttribute("testimonials", testimonialRepository.findAll());
+        return "admin/manageTestimonials";
+    }
 
+    //respond for localhost:8080/admin/manageLanguages
+    @GetMapping("manageLanguages")
+    public String displayLanguages(Model model) {
+        model.addAttribute("title", "All Languages");
+        model.addAttribute("languages", langRepository.findAll());
+        return "admin/manageLanguages";
+    }
 
     //lives at localhost:8080/admin/translatorDetail?translatorId=3
     @GetMapping("translator/Detail")
@@ -128,6 +147,29 @@ public class AdminController {
     public String deleteTranslator(@RequestParam(required = false) Integer translatorId, Model model) {
         translatorRepository.deleteById(translatorId);
         return "redirect:/admin/manageTranslators";
+    }
+
+    //lives at localhost:8080/admin/approveTestimonial?testimonialId=3
+    @PostMapping("/approveTestimonial")
+    public String approveTestimonial(@RequestParam(required = false) Integer testimonialId, Model model) {
+        Testimonial approved = testimonialRepository.findById(testimonialId).orElse(null);
+        approved.setApproved(true);
+        testimonialRepository.save(approved);
+        return "redirect:/admin/manageTestimonials";
+    }
+
+    //lives at localhost:8080/admin/deleteTestimonial?testimonialId=3
+    @PostMapping("/deleteTestimonial")
+    public String deleteTestimonial(@RequestParam(required = false) Integer testimonialId, Model model) {
+        testimonialRepository.deleteById(testimonialId);
+        return "redirect:/admin/manageTestimonials";
+    }
+
+    //lives at localhost:8080/admin/deleteTestimonial?testimonialId=3
+    @PostMapping("/deleteLanguage")
+    public String deleteLanguage(@RequestParam(required = false) Integer languageId, Model model) {
+        langRepository.deleteById(languageId);
+        return "redirect:/admin/manageLanguages";
     }
 
     public void splitAndSave(String languageInput) {

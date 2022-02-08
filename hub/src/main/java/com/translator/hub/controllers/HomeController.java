@@ -1,9 +1,11 @@
 package com.translator.hub.controllers;
 
 import com.translator.hub.data.LangRepository;
+import com.translator.hub.data.TestimonialRepository;
 import com.translator.hub.data.TranslatorRepository;
 import com.translator.hub.data.UserRepository;
 import com.translator.hub.models.Language;
+import com.translator.hub.models.Testimonial;
 import com.translator.hub.models.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TestimonialRepository testimonialRepository;
+
     private List<Translator> translators;
 
 //agb try changing this chunk of code 1/5
@@ -36,9 +41,12 @@ public class HomeController {
   //  }
 
 //Added lines 40-44
-    @RequestMapping("")
+    @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("translators", translatorRepository.findAll());
+        List<Testimonial> approvedTestimonials = testimonialRepository.findByApprovedTrue();
+        int random = (int)(Math.random() * approvedTestimonials.size());
+        model.addAttribute("testimonial", approvedTestimonials.get(random));
         return "index";
       }
 

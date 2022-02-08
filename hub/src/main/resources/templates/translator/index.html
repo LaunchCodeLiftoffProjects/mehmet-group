@@ -19,15 +19,13 @@
         <tbody>
         <tr th:each="translator : ${translators}">
             <td><a th:text="${translator.id}"
-                   th:href="'/admin/detail?translatorId='+ ${translator.id}"></a>
+                   th:href="'/admin/translator/detail?translatorId='+ ${translator.id}"></a>
             </td>
-            <td th:text="${translator.firstName}"> First Name</td>
-            <td th:text="${translator.lastName}"> Last Name</td>
-            <td><a th:text="${translator.language}"
-                   th:href="@{/list/translators(column=translator, value=${translator.language})}"></a>
-            </td>
-            <td th:text="${translator.address}"> Address</td>
-            <td th:text="${translator.bio}"> Bio Info</td>
+            <td th:text="${translator.firstName}"></td>
+            <td th:text="${translator.lastName}"></td>
+            <td th:text="${translator.language}"></td>
+            <td th:text="${translator.address}"></td>
+            <td th:text="${translator.bio}"></td>
         </tr>
         </tbody>
     </table>

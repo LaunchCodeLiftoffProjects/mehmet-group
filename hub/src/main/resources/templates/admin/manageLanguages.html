@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments::head"></head>
+<body>
+<div th:replace="fragments :: page-header"></div>
+<div th:replace="fragments :: messages"></div>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <p th:unless="${languages} and ${languages.size()}">No Languages!</p>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Language</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="language:${languages}">
+                <td th:text="${language.name}">
+                </td>
+                <td>
+                    <form class="column1" th:action="@{/admin/deleteLanguage}" method="post">
+                        <input type="hidden" name="languageId" th:value="${language.id}"/>
+                        <input type="submit" value="Delete" class="btn btn-danger"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

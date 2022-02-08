@@ -47,13 +47,15 @@
             <ul class="navbar-nav">
 <!--                 true if logged in as Admin - Translator dropdown-->
                 <li class="nav-item dropdown" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Admin Panel
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/admin/manageTranslators">View Translators</a></li>
                         <li><a class="dropdown-item" href="/user">View Users</a></li>
+                        <li><a class="dropdown-item" href="/admin/manageLanguages"/>View Languages</a></li>
+                        <li><a class="dropdown-item" href="/admin/manageTestimonials"/>View Testimonials</a></li>
                     </ul>
                 </li>
             </ul>
@@ -61,7 +63,7 @@
             <ul class="navbar-nav">
 <!--                 true if logged in as Translator-->
                 <li class="nav-item dropdown" th:if="${#authorization.expression('hasAuthority(''TRANSLATOR'')')}">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Translators
                     </a>
@@ -99,7 +101,10 @@
 </div>
 
 <footer th:fragment="footer" class="py-5 bg-dark fixed-bottom">
-    <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Translation Hub 2021</p></div>
+    <ul class="container px-5">
+        <li><p class="m-0 text-center text-white">Copyright &copy; Translation Hub 2021</p></li>
+        <li><a style="float:right" href="/testimonial" class="nav-link">Give Feedback</a></li>
+    </ul>
 </footer>
 
 <nav th:fragment="header">

@@ -34,7 +34,7 @@ public class TestimonialController {
         }
 
         testimonialRepository.save(newTestimonial);
-        return "index";
+        return "redirect:/";
     }
 
 

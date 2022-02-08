@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments::head"></head>
+<body>
+<div th:replace="fragments :: page-header"></div>
+<div th:replace="fragments :: messages"></div>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <p th:unless="${testimonials} and ${testimonials.size()}">No Testimonials!</p>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Message</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Approved</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="testimonial:${testimonials}">
+                <td th:text="${testimonial.message}">
+                </td>
+                <td th:text="${testimonial.firstname} + ' ' + ${testimonial.lastname}">
+                </td>
+                <td th:text="${testimonial.location}">
+                </td>
+                <td><span th:if="${testimonial.approved}">Yes</span></td>
+                <td>
+                    <span th:if="${!testimonial.approved}"><form class="column1" th:action="@{/admin/approveTestimonial}" method="post">
+                        <input type="hidden" name="testimonialId" th:value="${testimonial.id}"/>
+                        <input type="submit" value="Approve" class="btn btn-info"/>
+                    </form></span>
+                </td>
+                <td>
+                    <form class="column1" th:action="@{/admin/deleteTestimonial}" method="post">
+                        <input type="hidden" name="testimonialId" th:value="${testimonial.id}"/>
+                        <input type="submit" value="Delete" class="btn btn-danger"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

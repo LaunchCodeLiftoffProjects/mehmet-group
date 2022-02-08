@@ -41,7 +41,7 @@
                 <h2 class="h4 fw-bolder">Find A Translator</h2>
                 <p>If you have a document you need translated into a different language we might have the translator for you. Search by your desired languages or see a list of all translators.</p>
                 <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/search">Search</a>
-                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/viewtranslators">View All</a>
+                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/translator">View All</a>
             </div>
             <div class="col-lg-6 mb-5 mb-lg-0">
                 <h2 class="h4 fw-bolder">Become A Translator</h2>
@@ -64,9 +64,8 @@
                         <div class="d-flex">
                             <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
                             <div class="ms-4">
-                                <p class="mb-1">When I was on vacation overseas I heard a cheerful song at a local festival. When I returned home I used translation hub
-                                    to find out what the lyrics meant. Now I sing it whenever I'm feeling down.</p>
-                                <div class="small text-muted">- Thomas H, Ohio</div>
+                                <p class="mb-1"><span th:text="${testimonial.message}"></span></p>
+                                <div class="small text-muted"><span th:text="${testimonial.firstname} + ' ' + ${testimonial.lastname[0]} + ', ' + ${testimonial.location}"></span></div>
                             </div>
                         </div>
                     </div>
@@ -76,7 +75,10 @@
     </div>
 </section>
 <footer class="py-5 bg-dark">
-    <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Translation Hub 2021</p></div>
+    <ul class="container px-5">
+        <li><p class="m-0 text-center text-white">Copyright &copy; Translation Hub 2021</p></li>
+        <li><a style="float:right" href="/testimonial" class="nav-link">Give Feedback</a></li>
+    </ul>
 </footer>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
