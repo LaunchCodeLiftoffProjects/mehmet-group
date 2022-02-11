@@ -43,10 +43,14 @@ public class HomeController {
 //Added lines 40-44
     @RequestMapping("/")
     public String index(Model model) {
+
         model.addAttribute("translators", translatorRepository.findAll());
-        List<Testimonial> approvedTestimonials = testimonialRepository.findByApprovedTrue();
-        int random = (int)(Math.random() * approvedTestimonials.size());
-        model.addAttribute("testimonial", approvedTestimonials.get(random));
+        if (testimonialRepository.count() > 0) {
+            List<Testimonial> approvedTestimonials = testimonialRepository.findByApprovedTrue();
+            int random = (int)(Math.random() * approvedTestimonials.size());
+            model.addAttribute("testimonial", approvedTestimonials.get(random));
+        }
+
         return "index";
       }
 
