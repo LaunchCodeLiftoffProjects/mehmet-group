@@ -48,12 +48,12 @@ public class HomeController {
         if (testimonialRepository.count() > 0) {
             List<Testimonial> approvedTestimonials = testimonialRepository.findByApprovedTrue();
             int random = (int)(Math.random() * approvedTestimonials.size());
-            model.addAttribute("testimonial", approvedTestimonials.get(random));
+            if(random>0){
+                model.addAttribute("testimonial", approvedTestimonials.get(random));
+            }
         }
-
         return "index";
       }
-
 
     //add translators to repository using registration form
     @GetMapping("add")

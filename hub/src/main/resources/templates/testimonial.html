@@ -15,28 +15,28 @@
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-6">
-                        <form id="contactForm" th:action="@{/testimonial}" th:object="${testimonial}" method="post">
+                        <form id="contactForm" th:action="@{/testimonial}" th:object="${testimonial}" method="post" role="form">
                             <!-- First name input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="firstname" name="firstname" type="text" placeholder="Enter your first name..."/>
+                                <input class="form-control" id="firstname" th:field="*{firstname}" type="text" placeholder="Enter your first name..."/>
                                 <label for="firstname">First name</label>
                                 <div class="invalid-feedback" data-sb-feedback="name:required">A first name is required.</div>
                             </div>
                             <!-- Last name input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="lastname" name="lastname" type="text" placeholder="Enter your last name..."/>
+                                <input class="form-control" id="lastname" th:field="*{lastname}" type="text" placeholder="Enter your last name..."/>
                                 <label for="lastname">Last Name</label>
                                 <div class="invalid-feedback" data-sb-feedback="name:required">A last name is required.</div>
                             </div>
                             <!-- Location input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="location" name="location" type="text" placeholder="Enter your location..."/>
+                                <input class="form-control" id="location" th:field="*{location}"  type="text" placeholder="Enter your location..."/>
                                 <label for="location">Location</label>
                                 <div class="invalid-feedback" data-sb-feedback="location:required">A location is required.</div>
                             </div>
                             <!-- Message input-->
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" name="message" type="text" placeholder="Enter your message here..." style="height: 10rem"></textarea>
+                                <textarea class="form-control" id="message" th:field="*{message}" type="text" placeholder="Enter your message here..." style="height: 10rem"></textarea>
                                 <label for="message">Message</label>
                                 <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
                             </div>
