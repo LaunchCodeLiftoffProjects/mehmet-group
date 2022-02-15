@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class HomeController {
@@ -48,8 +49,10 @@ public class HomeController {
 
         List<Testimonial> approvedTestimonials = testimonialRepository.findByApprovedTrue();
             if (approvedTestimonials.size() > 0) {
-                int random = (int)(Math.random() * approvedTestimonials.size());
-                model.addAttribute("testimonial", approvedTestimonials.get(random));
+//                int random = (int)(Math.random() * approvedTestimonials.size());
+                Random ran = new Random();
+                int next = ran.nextInt(approvedTestimonials.size());
+                model.addAttribute("testimonial", approvedTestimonials.get(next));
             }
 
         return "index";
