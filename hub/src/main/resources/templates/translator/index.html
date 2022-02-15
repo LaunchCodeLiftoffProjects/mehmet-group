@@ -8,9 +8,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Photo</th>
+            <th>Name</th>
+<!--            <th>Last Name</th>-->
             <th>Languages</th>
             <th>Address</th>
             <th>Bio Info</th>
@@ -18,11 +18,12 @@
         </thead>
         <tbody>
         <tr th:each="translator : ${translators}">
-            <td><a th:text="${translator.id}"
-                   th:href="'/admin/translator/Detail?translatorId='+ ${translator.id}"></a>
-            </td>
-            <td th:text="${translator.firstName}"></td>
-            <td th:text="${translator.lastName}"></td>
+            <td> <img th:src="@{${translator.getPhotosImagePath}}"
+                     onerror="this.error=null;this.src='/img/default-logo.png';" width="100"
+                     alt="Translator Photo" class="rounded-circle"></td>
+            <td><a th:text="${translator.firstName} + ' ' + ${translator.lastName}"
+                   th:href="'/admin/translator/Detail?translatorId='+ ${translator.id}"></a></td>
+<!--            <td th:text="${translator.lastName}"></td>-->
             <td th:text="${translator.language}"></td>
             <td th:text="${translator.address}"></td>
             <td th:text="${translator.bio}"></td>
