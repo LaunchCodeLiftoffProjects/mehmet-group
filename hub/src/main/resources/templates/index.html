@@ -51,8 +51,9 @@
         </div>
     </div>
 </section>
+<th:block th:if="${testimonial}">
 <section class="py-5 border-bottom">
-    <div class="container px-5 my-5 px-5" th:if="${testimonials}">
+    <div class="container px-5 my-5 px-5">
         <div class="text-center mb-5">
             <h2 class="fw-bolder">Customer testimonials</h2>
         </div>
@@ -74,6 +75,7 @@
         </div>
     </div>
 </section>
+</th:block>
 <footer class="py-5 bg-dark">
     <ul class="container px-5">
         <li><p class="m-0 text-center text-white">Copyright &copy; Translation Hub 2021</p></li>

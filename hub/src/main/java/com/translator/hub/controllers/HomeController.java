@@ -45,13 +45,13 @@ public class HomeController {
     public String index(Model model) {
 
         model.addAttribute("translators", translatorRepository.findAll());
-        if (testimonialRepository.count() > 0) {
-            List<Testimonial> approvedTestimonials = testimonialRepository.findByApprovedTrue();
-            int random = (int)(Math.random() * approvedTestimonials.size());
-            if(random>0){
+
+        List<Testimonial> approvedTestimonials = testimonialRepository.findByApprovedTrue();
+            if (approvedTestimonials.size() > 0) {
+                int random = (int)(Math.random() * approvedTestimonials.size());
                 model.addAttribute("testimonial", approvedTestimonials.get(random));
             }
-        }
+
         return "index";
       }
 
